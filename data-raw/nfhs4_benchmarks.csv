@@ -1,0 +1,7 @@
+state,metric,value,source
+raj,median_age_marriage_women_20_49,19.4,NFHS-4 2015-16 Rajasthan state report table on marriage
+raj,share_women_20_24_married_by_18,0.353,NFHS-4 2015-16 Rajasthan fact sheet
+raj,median_spousal_gap,4.8,IHDS-II / NFHS couples recode rural north India approximation
+up,median_age_marriage_women_20_49,19.0,NFHS-4 2015-16 Uttar Pradesh state report table on marriage
+up,share_women_20_24_married_by_18,0.211,NFHS-4 2015-16 Uttar Pradesh fact sheet
+up,median_spousal_gap,4.5,IHDS-II / NFHS couples recode rural north India approximation

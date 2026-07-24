@@ -1,0 +1,100 @@
+# 03d_ps_treatment_join.R
+# Join the PS->GP bridges to the quota_raj treatment panels on lgd_gp_code.
+# Canonical treatment source: the 05-10 two-cycle panels (best coverage;
+# electors aged 18+ in the 2014/2018 rolls have no exposure overlap with the
+# 2015 cycle). treat_2015 is merged from the four-cycle panels where available.
+
+library(here)
+library(dplyr)
+library(readr)
+
+source(here("scripts", "00_config.R"))
+source(here("scripts", "00_utils.R"))
+
+BALANCE_COVARS <- c("pc01_pca_tot_p", "pc01_pca_tot_f", "pc01_pca_tot_m",
+                    "pc01_pca_p_lit", "pc01_pca_f_lit", "pc01_pca_m_lit",
+                    "pc01_pca_tot_work_p", "pc01_pca_tot_work_f")
+
+load_treatment <- function(state) {
+    if (state == "raj") {
+        panel <- arrow::read_parquet(
+            here("data", "external", "quota_raj", "shrug_gp_raj_05_10_block.parquet")) |>
+            transmute(
+                lgd_gp_code, lgd_gp_name_panel = lgd_gp_name, lgd_block_code,
+                treat_2005, treat_2010,
+                fe_district = district_std_2010,
+                fe_dist_block = dist_samiti_2010,
+                panel_match_distance = match_distance,
+                across(any_of(BALANCE_COVARS))
+            )
+        panel4 <- arrow::read_parquet(
+            here("data", "external", "quota_raj", "shrug_gp_raj_05_20_block.parquet")) |>
+            select(lgd_gp_code, treat_2015, count_treated) |>
+            filter(!is.na(lgd_gp_code)) |>
+            distinct(lgd_gp_code, .keep_all = TRUE)
+    } else {
+        panel <- arrow::read_parquet(
+            here("data", "external", "quota_raj", "shrug_gp_up_05_10_block.parquet")) |>
+            transmute(
+                lgd_gp_code, lgd_gp_name_panel = lgd_gp_name, lgd_block_code,
+                treat_2005, treat_2010,
+                fe_district = district_name_eng_2010,
+                fe_dist_block = dist_block_2010,
+                panel_match_distance = match_distance,
+                across(any_of(BALANCE_COVARS))
+            )
+        panel4 <- arrow::read_parquet(
+            here("data", "external", "quota_raj", "shrug_gp_up_05_21_block.parquet")) |>
+            select(lgd_gp_code, treat_2015, count_treated) |>
+            filter(!is.na(lgd_gp_code)) |>
+            distinct(lgd_gp_code, .keep_all = TRUE)
+    }
+
+    n_before <- nrow(panel)
+    panel <- panel |>
+        filter(!is.na(lgd_gp_code), !is.na(treat_2005), !is.na(treat_2010)) |>
+        arrange(lgd_gp_code, panel_match_distance) |>
+        distinct(lgd_gp_code, .keep_all = TRUE) |>
+        left_join(panel4, by = "lgd_gp_code")
+
+    list(panel = panel, n_dropped_dedup = n_before - nrow(panel))
+}
+
+for (state in c("raj", "up")) {
+    bridge <- arrow::read_parquet(
+        here("data", "bridge", sprintf("ps_gp_xwalk_%s.parquet", state)))
+    tr <- load_treatment(state)
+
+    joined <- bridge |>
+        inner_join(tr$panel, by = "lgd_gp_code")
+
+    arrow::write_parquet(joined,
+        here("data", "bridge", sprintf("ps_treatment_%s.parquet", state)))
+
+    coverage <- bridge |>
+        mutate(has_treatment = lgd_gp_code %in% tr$panel$lgd_gp_code) |>
+        group_by(district_std) |>
+        summarise(
+            n_parts_bridged = n(),
+            n_parts_with_treatment = sum(has_treatment),
+            share_parts_with_treatment = mean(has_treatment),
+            electors_bridged = sum(n_electors),
+            electors_with_treatment = sum(n_electors[has_treatment]),
+            .groups = "drop"
+        )
+    write_audit(coverage, sprintf("03d_%s_treatment_coverage.csv", state))
+    write_audit(
+        tibble(state = state,
+               n_panel_gps = nrow(tr$panel),
+               n_dropped_dedup = tr$n_dropped_dedup,
+               n_bridged_parts = nrow(bridge),
+               n_parts_with_treatment = nrow(joined),
+               n_gps_observed_in_rolls = n_distinct(joined$lgd_gp_code)),
+        sprintf("03d_%s_join_summary.csv", state))
+
+    message(sprintf(
+        "03d %s: %d parts with treatment (%d GPs); %d panel GPs available",
+        state, nrow(joined), n_distinct(joined$lgd_gp_code), nrow(tr$panel)))
+}
+
+message("03d complete")
