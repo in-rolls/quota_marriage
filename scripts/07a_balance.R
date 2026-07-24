@@ -46,6 +46,34 @@ for (state in ANALYSIS_STATES) {
     )
     readr::write_csv(make_balance_out,
                      here("tabs", sprintf("balance_%s.csv", state)))
+
+    # Design-consistent balance: within block, conditional on the seat's
+    # caste-reservation stratum (raw t-tests conflate the caste strata)
+    gps_fe <- bridge |>
+        distinct(lgd_gp_code, treat_2005, treat_2010, fe_dist_block,
+                 sc_2005, st_2005, obc_2005, sc_2010, st_2010, obc_2010,
+                 across(starts_with("pc01_"))) |>
+        mutate(
+            log_pop = log1p(as.numeric(pc01_pca_tot_p)),
+            lit_rate = as.numeric(pc01_pca_p_lit) / as.numeric(pc01_pca_tot_p),
+            f_lit_rate = as.numeric(pc01_pca_f_lit) /
+                pmax(as.numeric(pc01_pca_tot_f), 1)
+        )
+    cond_bal <- purrr::map_dfr(c("log_pop", "lit_rate", "f_lit_rate"), function(v) {
+        m <- fixest::feols(
+            as.formula(paste0(v, " ~ treat_2005 + treat_2010 + sc_2005 + st_2005 +",
+                              " obc_2005 + sc_2010 + st_2010 + obc_2010 | fe_dist_block")),
+            data = gps_fe, cluster = ~lgd_gp_code)
+        tibble::tibble(
+            covar = v,
+            term = c("treat_2005", "treat_2010"),
+            estimate = coef(m)[c("treat_2005", "treat_2010")],
+            se = fixest::se(m)[c("treat_2005", "treat_2010")],
+            p = fixest::pvalue(m)[c("treat_2005", "treat_2010")]
+        )
+    })
+    write_audit(cond_bal |> mutate(state = state),
+                sprintf("07a_%s_balance_conditional.csv", state))
 }
 
 message("07a complete")

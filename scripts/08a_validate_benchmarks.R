@@ -18,7 +18,9 @@ dir.create(here("figs", "validation"), showWarnings = FALSE)
 
 validation_summary <- list()
 
-for (state in c("raj", "up")) {
+VALIDATION_STATES <- Filter(function(s) file.exists(here("data", "audit",
+    sprintf("04a_%s_gap_distribution.csv", s))), c("raj", "up"))
+for (state in VALIDATION_STATES) {
     rel_by_age <- readr::read_csv(
         here("data", "audit", sprintf("02b_%s_relation_by_age.csv", state)),
         show_col_types = FALSE)

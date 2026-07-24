@@ -1,0 +1,103 @@
+roll_district,ref_district,match_method
+aaajamagadh,NA,NA
+aagaraa,azamgarh,fuzzy_0.220
+aajamagadh,NA,NA
+ad,hardoi,fuzzy_0.222
+ajnjaapagadh,NA,NA
+aleegadh,aligarh,fuzzy_0.220
+ambedakar nagar,ambedkar nagar,fuzzy_0.117
+ambedaphar nagar,ambedkar nagar,fuzzy_0.163
+amethee,amethi,fuzzy_0.151
+as,basti,fuzzy_0.200
+auraiyaa,auraiya,fuzzy_0.042
+baagapath,baghpat,fuzzy_0.242
+baamdaa,NA,NA
+baaraabamkee,NA,NA
+badaayoom,NA,NA
+baharaaich,bahraich,fuzzy_0.108
+balaraamapur,balrampur,fuzzy_0.120
+baliyaa,ballia,fuzzy_0.151
+barelee,bareilly,fuzzy_0.220
+basthee,basti,fuzzy_0.210
+bhadoohee,bhadohi,fuzzy_0.159
+bijanour,bijnor,fuzzy_0.083
+boer,NA,NA
+bulandasahar,bulandshahr,fuzzy_0.136
+bulanvasahar,bulandshahr,fuzzy_0.199
+chandoulee,chandauli,fuzzy_0.174
+chithrakoot,chitrakoot,fuzzy_0.030
+ded ha nagar,NA,NA
+devariyaa,auraiya,fuzzy_0.243
+elds,NA,NA
+ergs,NA,NA
+etaa,etawah,fuzzy_0.111
+fed ha nagar,NA,NA
+gaajeepur,NA,NA
+gaajiyaabaad,NA,NA
+garaget,agra,fuzzy_0.226
+ged ha nagar,NA,NA
+ged han nagar,NA,NA
+ged kabeer nagar,NA,NA
+goondaa,gonda,fuzzy_0.095
+goorakhapur,gorakhpur,fuzzy_0.061
+goutham buddh nagar,gautam buddha nagar,fuzzy_0.207
+haapud,hapur,fuzzy_0.178
+haatharas,hathras,fuzzy_0.169
+hameerapur,hamirpur,fuzzy_0.142
+haradooee,hardoi,fuzzy_0.204
+heese,NA,NA
+helse,NA,NA
+ilaahaabaad,NA,NA
+ilaahaabaav,NA,NA
+itaavaa,NA,NA
+jaaloun,jalaun,fuzzy_0.103
+jhhaamsee,NA,NA
+jounapur,jaunpur,fuzzy_0.113
+kaanapur dehaath,kanpur dehat,fuzzy_0.194
+kaanapur nagar,kanpur nagar,fuzzy_0.173
+kaasagamj,kasganj,fuzzy_0.242
+kannouj,kannauj,fuzzy_0.095
+kheeree,kheri,fuzzy_0.210
+kousaambee,kaushambi,fuzzy_0.246
+kuseenagar,kushinagar,fuzzy_0.133
+lakhanaoo,NA,NA
+lalithapur,lalitpur,fuzzy_0.067
+mahaaraajagamj,mahrajganj,fuzzy_0.226
+mahoobaa,mahoba,fuzzy_0.083
+mainapuree,mainpuri,fuzzy_0.142
+maoo,NA,NA
+mathuraa,mathura,fuzzy_0.042
+merath,amethi,fuzzy_0.222
+mirjaapur,mirzapur,fuzzy_0.116
+mujaphpharanagar,NA,NA
+muraadaabaad,moradabad,fuzzy_0.231
+muraavaabaad,NA,NA
+n,NA,NA
+peeleebheeth,NA,NA
+phaijaabaad,ghaziabad,fuzzy_0.243
+phararookhaabaad,NA,NA
+pharookhaabaad,NA,NA
+pharrookhaabaad,NA,NA
+phathehapur,shahjahanpur,fuzzy_0.244
+phiroojaabaad,NA,NA
+prathaapagadh,pratapgarh,fuzzy_0.228
+raamapur,rampur,fuzzy_0.083
+raay barelee,rae bareli,fuzzy_0.240
+ret se,NA,NA
+saahajahaaapur,shahjahanpur,fuzzy_0.217
+saamalee,NA,NA
+sahaaranapur,saharanpur,fuzzy_0.089
+sajnjaathragadh,NA,NA
+sambhal,sambhal,exact
+santh kabeer nagar,sant kabir nagar,fuzzy_0.076
+seco,NA,NA
+seethaapur,sitapur,fuzzy_0.181
+siddhaarthanagar,siddharthnagar,fuzzy_0.113
+soonabhadr,sonbhadra,fuzzy_0.144
+sraavasthee,NA,NA
+st aag,NA,NA
+sulthaanapur,sultanpur,fuzzy_0.083
+unnaav,unnao,fuzzy_0.178
+vaaraanasee,NA,NA
+wed kabeer nagar,NA,NA
+wh,NA,NA

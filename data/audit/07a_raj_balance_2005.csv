@@ -1,0 +1,6 @@
+Variable,Open,Quota,Diff.,treatment
+Log population (2001),8.26,8.25,0.00,treat_2005
+Female share (2001),0.48,0.48,-0.00,treat_2005
+Literacy rate (2001),0.44,0.43,0.01$^{***}$,treat_2005
+Female literacy rate (2001),0.29,0.28,0.01$^{***}$,treat_2005
+Work participation (2001),0.47,0.47,-0.01$^{*}$,treat_2005

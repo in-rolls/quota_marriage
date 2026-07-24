@@ -1,0 +1,23 @@
+{\centering\scriptsize
+\begingroup
+\begin{tabular}{@{}lcccccc@{}}
+   \toprule
+   Mean gap & \multicolumn{6}{c}{2} \\ 
+   Gap $\geq$ 5 & \multicolumn{6}{c}{2} \\ 
+   Married & \multicolumn{6}{c}{2} \\ 
+                                                    & [i]           & [ii]          & [iii]         & [iv]          & [v]           & [vi]\\  
+   \midrule 
+   Exposure dose (ages 5--15)                       & -0.09$^{**}$  & -0.06         & -0.00$^{**}$ & -0.00        & 0.01$^{***}$  & 0.02$^{**}$\\   
+                                                    & (0.04)        & (0.04)        & (0.00)       & (0.00)       & (0.00)       & (0.00)\\   
+   R$^2$                                            & 0.43          & 0.41          & 0.49          & 0.49          & 0.86          & 0.85\\  
+   Observations                                     & 219,136       & 220,481       & 219,298       & 220,651       & 250,543       & 251,521\\  
+   (District, Block) $\times$ Cohort FE  & $\checkmark$  &               & $\checkmark$  &               & $\checkmark$  & \\  
+   GP FE                                 &               & $\checkmark$  &               & $\checkmark$  &               & $\checkmark$\\   
+   District $\times$ Cohort FE           &               & $\checkmark$  &               & $\checkmark$  &               & $\checkmark$\\   
+   \bottomrule
+\end{tabular}
+\par\endgroup
+\par}
+
+\vspace{0.5ex}
+\parbox{\linewidth}{\scriptsize \emph{Notes: } $^{***}$p$<$0.01; $^{**}$p$<$0.05; $^{*}$p$<$0.1. Cells are GP $\times$ wife birth cohort; weights are cell couple counts; standard errors clustered by GP. Treatment is the reservation history of the couple's GP of residence; given patrilocal exogamy this identifies husband-side/marriage-market exposure, not the bride's own childhood exposure.}

@@ -1,0 +1,5 @@
+state,metric,rolls_value,benchmark,check
+raj,share_married_age18,0.2972972972972973,NA,NFHS current-status curves rise steeply 18-25
+raj,share_married_age25,0.7840634851264979,NA,should approach 0.9 by mid-20s (NFHS-4)
+raj,median_spousal_gap,3.0734449905457972,4.8,NFHS/IHDS rural median 4-5
+raj,share_negative_gap,0.05041604858887269,0.05,should be < 0.05

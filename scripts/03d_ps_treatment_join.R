@@ -22,6 +22,7 @@ load_treatment <- function(state) {
             transmute(
                 lgd_gp_code, lgd_gp_name_panel = lgd_gp_name, lgd_block_code,
                 treat_2005, treat_2010,
+                sc_2005, st_2005, obc_2005, sc_2010, st_2010, obc_2010,
                 fe_district = district_std_2010,
                 fe_dist_block = dist_samiti_2010,
                 panel_match_distance = match_distance,
@@ -38,6 +39,10 @@ load_treatment <- function(state) {
             transmute(
                 lgd_gp_code, lgd_gp_name_panel = lgd_gp_name, lgd_block_code,
                 treat_2005, treat_2010,
+                obc_2005, obc_2010,
+                sc_2005 = dalit_2005, sc_2010 = dalit_2010,
+                st_2005 = as.integer(grepl("Scheduled Tribe", gp_res_status_fin_eng_2005)),
+                st_2010 = as.integer(grepl("Scheduled Tribe", gp_res_status_fin_eng_2010)),
                 fe_district = district_name_eng_2010,
                 fe_dist_block = dist_block_2010,
                 panel_match_distance = match_distance,

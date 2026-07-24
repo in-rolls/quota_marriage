@@ -43,6 +43,23 @@ if (length(missing_targets) > 0) {
     stop("Files not found in dataset: ", paste(missing_targets, collapse = ", "))
 }
 
+# Raw files are deleted after ingest to save disk; do not re-download a
+# state whose rolls are already in parquet
+ingested <- c(
+    raj = file.exists(here("data", "rolls", "raj", ".ingest_complete")),
+    up  = file.exists(here("data", "rolls", "up", ".ingest_complete"))
+)
+targets <- targets |>
+    filter(!(label %in% ROLL_FILES$raj & ingested[["raj"]]),
+           !(label %in% ROLL_FILES$up & ingested[["up"]]))
+
+# The UP part files are redundant once the assembled archive exists
+up_target_pre <- file.path(raw_dir, "up_all_clean+t13n.csv.gz")
+up_expected_pre <- sum(file_index$bytes_expected[file_index$label %in% ROLL_FILES$up])
+if (file.exists(up_target_pre) && file.size(up_target_pre) == up_expected_pre) {
+    targets <- targets |> filter(!label %in% ROLL_FILES$up)
+}
+
 # =============================================================================
 # Download with skip-if-complete
 # =============================================================================
@@ -76,9 +93,11 @@ pwalk(targets |> select(label, id, bytes_expected), download_one)
 
 up_target <- file.path(raw_dir, "up_all_clean+t13n.csv.gz")
 up_parts <- file.path(raw_dir, ROLL_FILES$up)
-up_expected <- sum(targets$bytes_expected[targets$label %in% ROLL_FILES$up])
+up_expected <- up_expected_pre
 
-if (!file.exists(up_target) || file.size(up_target) != up_expected) {
+if (ingested[["up"]]) {
+    message("UP already ingested, skipping assembly")
+} else if (!file.exists(up_target) || file.size(up_target) != up_expected) {
     message("Concatenating UP parts")
     if (file.exists(up_target)) file.remove(up_target)
     ok <- file.append(up_target, up_parts)
@@ -106,13 +125,13 @@ check_header <- function(path) {
     )
 }
 
-header_checks <- map_dfr(
-    c(file.path(raw_dir, ROLL_FILES$raj), up_target),
-    check_header
-)
-stopifnot(all(header_checks$has_elector_name),
-          all(header_checks$has_relationship),
-          all(header_checks$has_part_no))
+check_paths <- Filter(file.exists, c(file.path(raw_dir, ROLL_FILES$raj), up_target))
+header_checks <- map_dfr(check_paths, check_header)
+if (nrow(header_checks) > 0) {
+    stopifnot(all(header_checks$has_elector_name),
+              all(header_checks$has_relationship),
+              all(header_checks$has_part_no))
+}
 
 manifest <- targets |>
     mutate(

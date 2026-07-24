@@ -71,6 +71,7 @@ for (state in c("raj", "up")) {
 
     treat <- arrow::read_parquet(ps_treat_path) |>
         distinct(lgd_gp_code, treat_2005, treat_2010, treat_2015, count_treated,
+                 sc_2005, st_2005, obc_2005, sc_2010, st_2010, obc_2010,
                  fe_district, fe_dist_block)
 
     gp_cohort <- cells |>

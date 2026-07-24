@@ -37,6 +37,8 @@ for (state in c("raj", "up")) {
     stats <- list()
 
     for (dp in districts) {
+        chunk_out <- file.path(out_dir, paste0(sub("^district_part=", "", dp), ".parquet"))
+        if (file.exists(chunk_out)) next
         chunk_glob <- file.path(electors_dir, dp, "*.parquet")
 
         pairs <- dbGetQuery(con, sprintf("
@@ -110,8 +112,7 @@ for (state in c("raj", "up")) {
                 state = state
             )
 
-        arrow::write_parquet(scored,
-            file.path(out_dir, paste0(sub("^district_part=", "", dp), ".parquet")))
+        arrow::write_parquet(scored, chunk_out)
 
         stats[[dp]] <- tibble(
             district_part = dp,
@@ -121,7 +122,23 @@ for (state in c("raj", "up")) {
         )
     }
 
-    linkage_stats <- bind_rows(stats) |>
+    # Recompute the audit over ALL chunks (earlier runs may have written some)
+    couples_files <- list.files(out_dir, pattern = "\\.parquet$", full.names = TRUE)
+    linkage_stats <- dbGetQuery(con, sprintf("
+        SELECT district_part,
+               count(*) AS n_linked
+        FROM read_parquet(%s)
+        GROUP BY district_part",
+        dbQuoteString(con, file.path(out_dir, "*.parquet")))) |>
+        left_join(
+            dbGetQuery(con, sprintf("
+                SELECT district_part, count(*) AS n_married_with_hh
+                FROM read_parquet(%s, hive_partitioning = true)
+                WHERE sex_std = 'f' AND relation_type = 'husband'
+                  AND house_no_clean IS NOT NULL
+                GROUP BY district_part",
+                dbQuoteString(con, file.path(electors_dir, "*", "*.parquet")))),
+            by = "district_part") |>
         mutate(linkage_rate = n_linked / pmax(n_married_with_hh, 1))
     write_audit(linkage_stats, sprintf("04a_%s_linkage_stats.csv", state))
 

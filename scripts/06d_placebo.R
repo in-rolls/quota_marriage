@@ -23,15 +23,29 @@ for (state in ANALYSIS_STATES) {
 
     stopifnot(all(cells$dose_main == 0))
 
+    castes <- paste(caste_controls(cells), collapse = " + ")
+    castes <- if (nzchar(castes)) paste0(" + ", castes) else ""
+
     for (y in c("mean_gap", "share_gap_ge5", "natal_ratio")) {
         wvar <- if (y %in% c("mean_gap", "share_gap_ge5")) "n_couples" else "n_women"
         d <- cells |> filter(!is.na(.data[[y]]), .data[[wvar]] > 0)
         m2 <- feols(as.formula(sprintf(
-                "%s ~ treat_2005 + treat_2010 | fe_dist_block^birth_year", y)),
+                "%s ~ treat_2005 + treat_2010%s | fe_dist_block^birth_year", y, castes)),
             data = d, weights = as.formula(paste0("~", wvar)),
             cluster = ~lgd_gp_code)
         all_tidy[[paste(state, y)]] <- battery_tidy(
             list(placebo = m2), state, "placebo", y)
+
+        # Strict placebo: cohorts born <= 1978 married almost entirely before
+        # 2005, so even marriage-market effects of the 2005 cycle cannot
+        # touch them
+        d_strict <- d |> filter(birth_year <= 1978)
+        m_strict <- feols(as.formula(sprintf(
+                "%s ~ treat_2005 + treat_2010%s | fe_dist_block^birth_year", y, castes)),
+            data = d_strict, weights = as.formula(paste0("~", wvar)),
+            cluster = ~lgd_gp_code)
+        all_tidy[[paste(state, y, "strict")]] <- battery_tidy(
+            list(placebo_strict = m_strict), state, "placebo_strict", y)
     }
 }
 

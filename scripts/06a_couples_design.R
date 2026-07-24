@@ -45,6 +45,7 @@ for (state in ANALYSIS_STATES) {
             arrow::read_parquet(
                 here("data", "bridge", sprintf("ps_treatment_%s.parquet", state))) |>
                 select(filename, lgd_gp_code, treat_2005, treat_2010, treat_2015,
+                       sc_2005, st_2005, obc_2005, sc_2010, st_2010, obc_2010,
                        fe_district, fe_dist_block),
             by = "filename") |>
         rename(birth_year = wife_birth_year) |>
@@ -57,9 +58,11 @@ for (state in ANALYSIS_STATES) {
             exp_2010 = treat_2010 * as.integer(frac_2010_main > 0)
         )
 
-    m_micro <- feols(gap ~ dose_main | fe_dist_block^birth_year,
-                     data = micro, cluster = ~lgd_gp_code)
-    m_micro_clean <- feols(gap ~ dose_main | fe_dist_block^birth_year,
+    micro_castes <- paste(caste_controls(micro), collapse = " + ")
+    micro_fml <- as.formula(paste0("gap ~ dose_main + ", micro_castes,
+                                   " | fe_dist_block^birth_year"))
+    m_micro <- feols(micro_fml, data = micro, cluster = ~lgd_gp_code)
+    m_micro_clean <- feols(micro_fml,
                            data = micro |> filter(!husband_contested, !gap_implausible),
                            cluster = ~lgd_gp_code)
     all_tidy[[paste(state, "gap_micro")]] <- bind_rows(
