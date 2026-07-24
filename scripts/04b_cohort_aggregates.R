@@ -14,6 +14,11 @@ con <- get_duck()
 on.exit(DBI::dbDisconnect(con, shutdown = TRUE), add = TRUE)
 
 for (state in c("raj", "up")) {
+    if (!file.exists(here("data", "bridge", sprintf("ps_treatment_%s.parquet", state))) ||
+        !file.exists(here("data", "couples", state, ".linkage_complete"))) {
+        message("Inputs not yet built, skipping: ", state)
+        next
+    }
     electors_glob <- here("data", "electors", state, "*", "*.parquet")
     couples_glob <- here("data", "couples", state, "*.parquet")
     ps_treat_path <- here("data", "bridge", sprintf("ps_treatment_%s.parquet", state))

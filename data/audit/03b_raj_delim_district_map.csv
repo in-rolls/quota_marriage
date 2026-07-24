@@ -1,0 +1,33 @@
+roll_district,ref_district,match_method
+ajmer,ajmer,exact
+alwar,alwar,exact
+banswara,banswara,exact
+baran,baran,exact
+barmer,barmer,exact
+bharatpur,bharatpur,exact
+bhilwara,bhilwara,exact
+bikaner,bikaner,exact
+bundi,bundi,exact
+chittorgarh,chittorgarh,exact
+churu,churu,exact
+dausa,dausa,exact
+dhaulpur,dholpur,fuzzy_0.214
+dungarpur,dungarpur,exact
+ganganagar,ganganagar,exact
+jaipur,jaipur,exact
+jaisalmer,jaisalmer,exact
+jalore,jalore,exact
+jhalawar,jhalawar,exact
+jhunjhunu,jhunjhunu,exact
+jodhpur,jodhpur,exact
+karauli,karauli,exact
+nagaur,nagaur,exact
+pali,pali,exact
+pratapgarh,pratapgarh,exact
+rajsamand,rajsamand,exact
+sawai madhopur,sawai madhopur,exact
+sikar,sikar,exact
+sirohi,sirohi,exact
+sri ganganagar,ganganagar,fuzzy_0.095
+tonk,tonk,exact
+udaipur,udaipur,exact

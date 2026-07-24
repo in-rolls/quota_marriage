@@ -1,0 +1,51 @@
+roll_district,ref_district,match_method
+ajmer,ajmer,exact
+alwar,alwar,exact
+anupgarh,hanumangarh,fuzzy_0.210
+balotra,NA,NA
+banswara,banswara,exact
+baran,baran,exact
+barmer,barmer,exact
+beawar,alwar,fuzzy_0.178
+bharatpur,bharatpur,exact
+bhilwara,bhilwara,exact
+bikaner,bikaner,exact
+bundi,bundi,exact
+chittorgarh,chittorgarh,exact
+churu,churu,exact
+dausa,dausa,exact
+deeg,NA,NA
+dholpur,dholpur,exact
+didwanakuchaman,NA,NA
+dudu,NA,NA
+dungarpur,dungarpur,exact
+ganganagar,ganganagar,exact
+gangapurcity,nagaur,fuzzy_0.222
+hanumangarh,hanumangarh,exact
+jaipur,jaipur,exact
+jaipur gramin,jaipur,fuzzy_0.179
+jaisalmer,jaisalmer,exact
+jalore,jalore,exact
+jhalawar,jhalawar,exact
+jhunjhunu,jhunjhunu,exact
+jodhpur,jodhpur,exact
+jodhpur gramin,jodhpur,fuzzy_0.167
+karauli,karauli,exact
+kekri,NA,NA
+khairthaltijara,NA,NA
+kota,kota,exact
+kotputlibehror,NA,NA
+nagaur,nagaur,exact
+neem ka thana,NA,NA
+pali,pali,exact
+phalodi,NA,NA
+pratapgarh,pratapgarh,exact
+rajsamand,rajsamand,exact
+salumbar,alwar,fuzzy_0.233
+sanchore,NA,NA
+sawai madhopur,sawai madhopur,exact
+shahpura,NA,NA
+sikar,sikar,exact
+sirohi,sirohi,exact
+tonk,tonk,exact
+udaipur,udaipur,exact

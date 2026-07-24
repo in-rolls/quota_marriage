@@ -46,6 +46,10 @@ for (state in c("raj", "up")) {
         message("Already cleaned, skipping: ", state)
         next
     }
+    if (!file.exists(file.path(here("data", "rolls", state), ".ingest_complete"))) {
+        message("Rolls not yet ingested, skipping: ", state)
+        next
+    }
     unlink(list.files(out_dir, pattern = "^district_part=", full.names = TRUE),
            recursive = TRUE)
 

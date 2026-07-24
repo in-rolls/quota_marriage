@@ -1,0 +1,3 @@
+file,n_header_cols,has_elector_name,has_relationship,has_part_no
+rajasthan_all_clean+t13n.csv.gz,38,TRUE,TRUE,TRUE
+up_all_clean+t13n.csv.gz,38,TRUE,TRUE,TRUE

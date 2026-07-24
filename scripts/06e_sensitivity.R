@@ -26,7 +26,9 @@ run_spec <- function(cells, y, treat_var, wvar, label, state) {
 
 all_specs <- list()
 
-for (state in c("raj", "up")) {
+ANALYSIS_STATES <- Filter(function(s) file.exists(here("data", "cohorts",
+    sprintf("analysis_%s.parquet", s))), c("raj", "up"))
+for (state in ANALYSIS_STATES) {
     cells <- arrow::read_parquet(
         here("data", "cohorts", sprintf("analysis_%s.parquet", state)))
 

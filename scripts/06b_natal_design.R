@@ -14,7 +14,9 @@ OUTCOMES_B <- c("natal_share_w", "natal_ratio")
 
 all_tidy <- list()
 
-for (state in c("raj", "up")) {
+ANALYSIS_STATES <- Filter(function(s) file.exists(here("data", "cohorts",
+    sprintf("analysis_%s.parquet", s))), c("raj", "up"))
+for (state in ANALYSIS_STATES) {
     cells <- arrow::read_parquet(
         here("data", "cohorts", sprintf("analysis_%s.parquet", state)))
 

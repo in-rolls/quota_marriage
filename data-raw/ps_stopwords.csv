@@ -151,3 +151,32 @@ building,latin,building
 office,latin,office
 center,latin,center
 centre,latin,center
+मतदान,dev,polling
+केंद्र,dev,center variant
+केन्द,dev,center ocr
+का,dev,possessive
+की,dev,possessive
+के,dev,possessive
+एवं,dev,and
+पता,dev,address
+गांव,dev,village word
+गाँव,dev,village word
+ग्राम,dev,village word
+पास,dev,near
+स्थित,dev,located
+mathadaan,latin,polling
+matdan,latin,polling
+kendr,latin,center ocr
+kaa,latin,possessive
+kee,latin,possessive
+ke,latin,possessive
+evam,latin,and
+pathaa,latin,address
+pata,latin,address
+gaamv,latin,village word
+gamv,latin,village word
+gaon,latin,village word
+gram,latin,village word
+paas,latin,near
+sthith,latin,located
+sthit,latin,located

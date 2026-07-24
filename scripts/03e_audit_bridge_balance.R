@@ -13,6 +13,10 @@ source(here("scripts", "00_utils.R"))
 results <- list()
 
 for (state in c("raj", "up")) {
+    if (!file.exists(here("data", "bridge", sprintf("ps_treatment_%s.parquet", state)))) {
+        message("Treatment join not yet built, skipping: ", state)
+        next
+    }
     panel_file <- if (state == "raj") "shrug_gp_raj_05_10_block.parquet"
                   else "shrug_gp_up_05_10_block.parquet"
     panel <- arrow::read_parquet(here("data", "external", "quota_raj", panel_file))

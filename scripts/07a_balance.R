@@ -8,7 +8,9 @@ library(dplyr)
 source(here("scripts", "00_config.R"))
 source(here("scripts", "00_utils.R"))
 
-for (state in c("raj", "up")) {
+ANALYSIS_STATES <- Filter(function(s) file.exists(here("data", "cohorts",
+    sprintf("analysis_%s.parquet", s))), c("raj", "up"))
+for (state in ANALYSIS_STATES) {
     bridge <- arrow::read_parquet(
         here("data", "bridge", sprintf("ps_treatment_%s.parquet", state)))
 

@@ -55,13 +55,16 @@ normalize_string_strict <- function(input_string) {
     return(normalized_string)
 }
 
-# Devanagari-specific normalization: strip danda, nukta variants, zero-width
-# joiners, and collapse whitespace, without transliterating
+# Devanagari-specific normalization: strip danda, zero-width joiners, and
+# punctuation, and collapse whitespace, without transliterating. Punctuation
+# must be removed with a Unicode-aware class: R's TRE [[:punct:]] treats
+# Devanagari combining marks (vowel matras) as punctuation on UTF-8 input
+# and shreds the names.
 normalize_devanagari <- function(input_string) {
     s <- stri_replace_all_regex(input_string, "[\\u200b-\\u200d\\ufeff]", "")
     s <- stri_replace_all_regex(s, "[\\u0964\\u0965]", " ")
     s <- stri_trans_nfc(s)
-    s <- gsub("[[:punct:]]", " ", s)
+    s <- stri_replace_all_regex(s, "\\p{P}", " ")
     s <- gsub("\\s+", " ", s)
     trimws(s)
 }

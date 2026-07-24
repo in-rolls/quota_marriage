@@ -20,7 +20,10 @@ on.exit(DBI::dbDisconnect(con, shutdown = TRUE), add = TRUE)
 
 for (state in names(STATES)) {
     src <- STATES[[state]]
-    stopifnot(file.exists(src))
+    if (!file.exists(src)) {
+        message("Raw file not yet present, skipping: ", state)
+        next
+    }
     out_dir <- here("data", "rolls", state)
     done_flag <- file.path(out_dir, ".ingest_complete")
     if (file.exists(done_flag)) {

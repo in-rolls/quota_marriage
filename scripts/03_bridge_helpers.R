@@ -1,6 +1,54 @@
 # 03_bridge_helpers.R
 # Shared machinery for the polling-part -> village -> LGD GP bridge (03b, 03c).
 
+# The roll PDFs' district headers carry OCR junk prefixes ("ः ", "हि ", "ह ",
+# stray digits). Strip leading tokens of <= 2 characters and stray digit runs,
+# keeping the longest tail that looks like a name.
+clean_district_dev <- function(x) {
+    x <- normalize_devanagari(x)
+    for (i in 1:3) {
+        x <- sub("^\\S{1,2}\\s+", "", x)
+        x <- sub("^[0-9०-९]+\\s*", "", x)
+    }
+    trimws(x)
+}
+
+# Map cleaned Devanagari district names to reference (latin) district names
+# via ICU transliteration + JW fuzzy, with manual overrides (CSV columns
+# roll_district, ref_district; roll_district holds the cleaned Devanagari
+# string or its transliteration) taking precedence.
+build_district_map_dev <- function(dev_names, ref_districts, override_path,
+                                   threshold = 0.30) {
+    ref_districts <- sort(unique(ref_districts[!is.na(ref_districts)]))
+    map <- tibble(district_dev_clean = sort(unique(dev_names[!is.na(dev_names) &
+                                                             dev_names != ""]))) |>
+        mutate(
+            translit = normalize_string(
+                stringi::stri_trans_general(district_dev_clean, "Devanagari-Latin")),
+            ref_district = NA_character_,
+            match_method = NA_character_
+        )
+    for (i in seq_len(nrow(map))) {
+        d <- stringdist::stringdist(map$translit[i], ref_districts, method = "jw")
+        if (min(d) <= threshold) {
+            map$ref_district[i] <- ref_districts[which.min(d)]
+            map$match_method[i] <- sprintf("fuzzy_%.3f", min(d))
+        }
+    }
+    if (file.exists(override_path)) {
+        overrides <- readr::read_csv(override_path, show_col_types = FALSE)
+        for (j in seq_len(nrow(overrides))) {
+            k <- which(map$district_dev_clean == overrides$roll_district[j] |
+                       map$translit == overrides$roll_district[j])
+            if (length(k) >= 1) {
+                map$ref_district[k] <- overrides$ref_district[j]
+                map$match_method[k] <- "manual"
+            }
+        }
+    }
+    map
+}
+
 # Map roll district names to reference district names: exact on normalized
 # strings, then JW fuzzy, with optional manual overrides (a CSV with columns
 # roll_district, ref_district) taking precedence.
@@ -41,6 +89,62 @@ build_district_map <- function(roll_districts, ref_districts, override_path,
         }
     }
     map
+}
+
+# Transliterated candidate cleanup: polling-station names arrive with the
+# part number glued on ("192dhaanaa") and stray non-Latin marks from the
+# transliterator; drop both and refuse fragments under 3 characters.
+clean_candidate_std <- function(x) {
+    x <- gsub("[^a-z0-9 ]", "", coalesce(x, ""))
+    x <- trimws(gsub("\\s+", " ", x))
+    is_chak <- grepl("^[0-9]+\\s*[a-z]{1,3}($|\\s)", x)
+    x <- ifelse(is_chak, x, sub("^[0-9]+\\s*", "", x))
+    ifelse(is.na(x) | nchar(x) < 3, NA_character_, x)
+}
+
+# Consonant skeleton for transliteration-robust exact matching: the libindic
+# transliterations double vowels and insert schwa 'a's ("chaakasoo" for
+# Chaksu), so vowels carry no signal. Keep the leading character, drop other
+# vowels, unify w/v, collapse repeats. Ambiguity from over-merging is handled
+# by exact_stage's dedup within block.
+skeleton_key <- function(x) {
+    x <- tolower(coalesce(x, ""))
+    is_chak <- grepl("^[0-9]+\\s*[a-z]{1,3}$", x)
+    chak <- gsub("\\s+", "", x)
+    x <- gsub("[^a-z]", "", x)
+    x <- gsub("w", "v", x)
+    x <- gsub("m", "n", x)
+    head_chr <- substr(x, 1, 1)
+    tail_chr <- gsub("[aeiou]", "", substr(x, 2, nchar(x)))
+    s <- paste0(head_chr, tail_chr)
+    s <- gsub("(.)\\1+", "\\1", s)
+    s <- ifelse(is_chak, chak, s)
+    ifelse(nchar(s) < 2, NA_character_, s)
+}
+
+clean_candidate_dev <- function(x) {
+    x <- sub("^[0-9०-९]+\\s*", "", x)
+    x <- trimws(gsub("\\s+", " ", x))
+    ifelse(is.na(x) | nchar(x) < 2, NA_character_, x)
+}
+
+# Fuzzy-map roll tehsil names (mandal) onto the reference subdistrict
+# vocabulary within each mapped district, so tehsil-blocked stages share a
+# vocabulary. Returns (lgd_district, mandal_std, subdistrict_ref).
+build_tehsil_map <- function(ps_dir, ref_tehsils, threshold = 0.25) {
+    roll_tehsils <- ps_dir |>
+        filter(!is.na(lgd_district), !is.na(mandal_std), mandal_std != "") |>
+        distinct(lgd_district, mandal_std)
+    ref_tehsils <- ref_tehsils |>
+        filter(!is.na(subdistrict_std), subdistrict_std != "") |>
+        distinct(block_key, subdistrict_std)
+    m <- match_best_in_block(roll_tehsils$mandal_std, roll_tehsils$lgd_district,
+                             ref_tehsils$subdistrict_std, ref_tehsils$block_key,
+                             threshold)
+    roll_tehsils |>
+        mutate(subdistrict_ref = ifelse(is.na(m$cand_idx), NA_character_,
+                                        ref_tehsils$subdistrict_std[m$cand_idx]),
+               tehsil_match_distance = m$match_distance)
 }
 
 # One cascade stage: exact join of a candidate column against a reference,

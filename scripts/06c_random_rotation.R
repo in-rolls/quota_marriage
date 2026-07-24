@@ -13,7 +13,9 @@ source(here("scripts", "06_estimation_helpers.R"))
 all_tidy <- list()
 rotation_audit <- list()
 
-for (state in c("raj", "up")) {
+ANALYSIS_STATES <- Filter(function(s) file.exists(here("data", "cohorts",
+    sprintf("analysis_%s.parquet", s))), c("raj", "up"))
+for (state in ANALYSIS_STATES) {
     panel_file <- if (state == "raj") "shrug_gp_raj_05_10_block.parquet"
                   else "shrug_gp_up_05_10_block.parquet"
     district_var <- if (state == "raj") "district_std_2010" else "district_name_eng_2010"

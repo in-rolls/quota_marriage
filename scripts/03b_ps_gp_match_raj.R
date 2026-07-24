@@ -30,21 +30,23 @@ lgd_gp <- read_csv(here("data", "external", "quota_raj", "lgd_raj_block_gp.csv")
 # District mapping: roll districts -> LGD zila names
 # =============================================================================
 
-district_map <- build_district_map(
-    ps_dir$district_std,
+ps_dir <- ps_dir |> mutate(district_dev_clean = clean_district_dev(district_dev))
+
+district_map <- build_district_map_dev(
+    ps_dir$district_dev_clean,
     lgd_gp$zila_name_std,
     here("data-raw", "raj_district_xwalk_rolls.csv")
 )
 write_audit(district_map, "03b_raj_district_map.csv")
 if (any(is.na(district_map$ref_district))) {
     warning("Unmapped roll districts: ",
-            paste(district_map$roll_district[is.na(district_map$ref_district)],
+            paste(district_map$translit[is.na(district_map$ref_district)],
                   collapse = ", "))
 }
 
 ps_dir <- ps_dir |>
-    left_join(district_map |> select(roll_district, lgd_district = ref_district),
-              by = c("district_std" = "roll_district")) |>
+    left_join(district_map |> select(district_dev_clean, lgd_district = ref_district),
+              by = "district_dev_clean") |>
     mutate(
         district_block_key = lgd_district,
         tehsil_block_key = paste(lgd_district, mandal_std, sep = "|")
@@ -194,35 +196,65 @@ ref2 <- ref2 |>
         block_key = coalesce(lgd_zila, district_raw),
         tehsil_key = paste(block_key, subdistrict_std, sep = "|")
     ) |>
-    select(-district_raw, -subdistrict_std, -lgd_zila)
+    select(-district_raw, -lgd_zila)
+
+# Map roll tehsils (mandal) into this file's subdistrict vocabulary so the
+# tehsil-blocked stages can join exactly
+tehsil_map <- build_tehsil_map(ps_dir, ref2)
+write_audit(tehsil_map, "03b_raj_tehsil_map.csv")
+ps_dir <- ps_dir |>
+    left_join(tehsil_map |> select(lgd_district, mandal_std, subdistrict_ref),
+              by = c("lgd_district", "mandal_std")) |>
+    mutate(tehsil_block_key = ifelse(is.na(subdistrict_ref), NA_character_,
+                                     paste(lgd_district, subdistrict_ref, sep = "|")))
 
 # =============================================================================
 # Cascade
 # =============================================================================
 
+ref1_dev <- ref1 |> rename(village_key = village_key_dev) |>
+    filter(!is.na(village_key))
+ref1_std <- ref1 |> rename(village_key = village_key_std) |>
+    filter(!is.na(village_key))
+ref2_tehsil <- ref2 |> mutate(block_key = tehsil_key)
+ref2_skel <- ref2 |> mutate(village_key = skeleton_key(village_key)) |>
+    filter(!is.na(village_key))
+ref2_skel_tehsil <- ref2_skel |> mutate(block_key = tehsil_key)
+
+ps_dir <- ps_dir |>
+    mutate(
+        village_cand_1_skel = skeleton_key(village_cand_1_std),
+        village_cand_2_skel = skeleton_key(village_cand_2_std),
+        village_cand_3_skel = skeleton_key(village_cand_3_std),
+        village_cand_4_skel = skeleton_key(village_cand_4_std)
+    )
+
 stages <- list(
-    list(name = "dev_exact_delim",  type = "exact", cand = "dev",
-         ref = ref1 |> rename(village_key = village_key_dev) |>
-                   filter(!is.na(village_key)), block = "district"),
+    list(name = "dev_exact_delim", type = "exact", cand = "dev",
+         ref = ref1_dev, block = "district"),
+    list(name = "t13n_exact_lgd_tehsil", type = "exact", cand = "std",
+         ref = ref2_tehsil, block = "tehsil"),
     list(name = "t13n_exact_delim", type = "exact", cand = "std",
-         ref = ref1 |> rename(village_key = village_key_std) |>
-                   filter(!is.na(village_key)), block = "district"),
-    list(name = "t13n_exact_lgd",   type = "exact", cand = "std",
+         ref = ref1_std, block = "district"),
+    list(name = "t13n_exact_lgd", type = "exact", cand = "std",
          ref = ref2, block = "district"),
-    list(name = "fuzzy_district_delim", type = "fuzzy", cand = "std",
-         ref = ref1 |> rename(village_key = village_key_std) |>
-                   filter(!is.na(village_key)),
-         threshold = JW_VILLAGE_DISTRICT, block = "district"),
-    list(name = "fuzzy_district_lgd", type = "fuzzy", cand = "std",
-         ref = ref2, threshold = JW_VILLAGE_DISTRICT, block = "district"),
+    list(name = "skel_exact_lgd_tehsil", type = "exact", cand = "skel",
+         ref = ref2_skel_tehsil, block = "tehsil"),
+    list(name = "skel_exact_lgd", type = "exact", cand = "skel",
+         ref = ref2_skel, block = "district"),
+    list(name = "skel_fuzzy_lgd_tehsil", type = "fuzzy", cand = "skel",
+         ref = ref2_skel_tehsil, threshold = 0.12, block = "tehsil"),
     list(name = "fuzzy_tehsil_lgd", type = "fuzzy", cand = "std",
-         ref = ref2 |> mutate(block_key = tehsil_key),
-         threshold = JW_VILLAGE_TEHSIL, block = "tehsil")
+         ref = ref2_tehsil, threshold = JW_VILLAGE_TEHSIL, block = "tehsil"),
+    list(name = "fuzzy_district_delim", type = "fuzzy", cand = "std",
+         ref = ref1_std, threshold = JW_VILLAGE_DISTRICT, block = "district"),
+    list(name = "fuzzy_district_lgd", type = "fuzzy", cand = "std",
+         ref = ref2, threshold = JW_VILLAGE_DISTRICT, block = "district")
 )
 
 pending <- ps_dir |> filter(!is.na(lgd_district))
 all_matched <- list()
-for (cand_rank in 1:3) {
+for (cand_rank in 1:4) {
     res <- run_cascade(pending, cand_rank, stages)
     if (nrow(res$matched) > 0) {
         all_matched[[cand_rank]] <- res$matched |> mutate(cand_rank = cand_rank)

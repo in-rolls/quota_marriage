@@ -18,6 +18,10 @@ on.exit(DBI::dbDisconnect(con, shutdown = TRUE), add = TRUE)
 
 for (state in c("raj", "up")) {
     electors_dir <- here("data", "electors", state)
+    if (!file.exists(file.path(electors_dir, ".clean_complete"))) {
+        message("Electors not yet cleaned, skipping: ", state)
+        next
+    }
     out_dir <- here("data", "couples", state)
     dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
     done_flag <- file.path(out_dir, ".linkage_complete")

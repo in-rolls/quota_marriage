@@ -61,6 +61,10 @@ load_treatment <- function(state) {
 }
 
 for (state in c("raj", "up")) {
+    if (!file.exists(here("data", "bridge", sprintf("ps_gp_xwalk_%s.parquet", state)))) {
+        message("Bridge not yet built, skipping: ", state)
+        next
+    }
     bridge <- arrow::read_parquet(
         here("data", "bridge", sprintf("ps_gp_xwalk_%s.parquet", state)))
     tr <- load_treatment(state)

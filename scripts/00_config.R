@@ -26,8 +26,10 @@ ROLL_FILES <- list(
             "up_all_clean+t13n.csv.gz.partac")
 )
 
-# Asserted against the modal `year` column at 02b; hard stop on mismatch
-ROLL_YEAR <- c(raj = 2014L, up = 2018L)
+# Asserted against the modal `year` column at 02b (which wins on mismatch).
+# The electoral_rolls README table says Rajasthan 2014, but the scraper pulled
+# the 2018 draft roll (Draftroll_2018.aspx) and the data's year column is 2018.
+ROLL_YEAR <- c(raj = 2018L, up = 2018L)
 
 # Approximate published electorate sizes; 02a flags >10% deviation
 EXPECTED_ELECTORS <- c(raj = 41e6, up = 140e6)

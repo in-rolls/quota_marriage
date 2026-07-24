@@ -1,0 +1,5 @@
+label,id,bytes_expected,md5_expected,bytes_actual,complete
+rajasthan_all_clean+t13n.csv.gz,4940383,1494471793,de3f7f49bd7092f2f48ae8b6a114e8a6,1494471793,TRUE
+up_all_clean+t13n.csv.gz.partaa,4940379,2147483648,b9e6d1600686ebaef98fa1561c5670bc,2147483648,TRUE
+up_all_clean+t13n.csv.gz.partab,4940364,2147483648,108963ff13cef1ea24b4e304c6a0427b,2147483648,TRUE
+up_all_clean+t13n.csv.gz.partac,4940376,809754114,a970c102388389a5a3ff552fe5386cf8,809754114,TRUE

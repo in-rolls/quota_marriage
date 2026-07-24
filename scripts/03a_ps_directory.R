@@ -11,6 +11,7 @@ library(DBI)
 
 source(here("scripts", "00_config.R"))
 source(here("scripts", "00_utils.R"))
+source(here("scripts", "03_bridge_helpers.R"))
 
 stopwords <- readr::read_csv(here("data-raw", "ps_stopwords.csv"),
                              show_col_types = FALSE)
@@ -43,6 +44,10 @@ con <- get_duck()
 on.exit(DBI::dbDisconnect(con, shutdown = TRUE), add = TRUE)
 
 for (state in c("raj", "up")) {
+    if (!file.exists(here("data", "electors", state, ".clean_complete"))) {
+        message("Electors not yet cleaned, skipping: ", state)
+        next
+    }
     electors_glob <- here("data", "electors", state, "*", "*.parquet")
     rolls_glob <- here("data", "rolls", state, "*", "*.parquet")
 
@@ -71,11 +76,20 @@ for (state in c("raj", "up")) {
     dev_cands <- extract_candidates(ps, "main_town_dev", "ps_name_dev",
                                     "ps_addr_dev", stop_dev,
                                     normalize_devanagari) |>
+        mutate(across(everything(), clean_candidate_dev)) |>
         rename_with(~ paste0("village_", .x, "_dev"))
     std_cands <- extract_candidates(ps, "main_town_t13n", "ps_name_t13n",
                                     "ps_addr_t13n", stop_lat,
                                     normalize_string) |>
+        mutate(across(everything(), clean_candidate_std)) |>
         rename_with(~ paste0("village_", .x, "_std"))
+
+    longest_token <- function(x) {
+        vapply(str_split(coalesce(x, ""), "\\s+"), function(t) {
+            t <- t[nchar(t) >= 4]
+            if (length(t) == 0) NA_character_ else t[which.max(nchar(t))]
+        }, character(1))
+    }
 
     ps_dir <- ps |>
         mutate(
@@ -84,6 +98,13 @@ for (state in c("raj", "up")) {
             mandal_std = normalize_string(mandal_t13n)
         ) |>
         bind_cols(dev_cands, std_cands) |>
+        mutate(
+            village_cand_4_std = ifelse(
+                grepl(" ", village_cand_2_std),
+                longest_token(village_cand_2_std),
+                NA_character_),
+            village_cand_4_dev = NA_character_
+        ) |>
         mutate(
             has_candidate = !is.na(village_cand_1_dev) | !is.na(village_cand_2_dev) |
                             !is.na(village_cand_1_std) | !is.na(village_cand_2_std)

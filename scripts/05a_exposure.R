@@ -17,6 +17,10 @@ overlap_years <- function(win_start, win_end, cyc_start, cyc_end) {
 }
 
 for (state in c("raj", "up")) {
+    if (!file.exists(here("data", "cohorts", sprintf("gp_cohort_%s.parquet", state)))) {
+        message("Cohort cells not yet built, skipping: ", state)
+        next
+    }
     gp_cohort <- arrow::read_parquet(
         here("data", "cohorts", sprintf("gp_cohort_%s.parquet", state)))
 
