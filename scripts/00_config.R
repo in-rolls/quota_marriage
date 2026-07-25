@@ -27,9 +27,9 @@ ROLL_FILES <- list(
 )
 
 # Asserted against the modal `year` column at 02b (which wins on mismatch).
-# The electoral_rolls README table says Rajasthan 2014, but the scraper pulled
-# the 2018 draft roll (Draftroll_2018.aspx) and the data's year column is 2018.
-ROLL_YEAR <- c(raj = 2018L, up = 2018L)
+# The electoral_rolls README table says Rajasthan 2014 / UP 2018, but the
+# data's year columns are Rajasthan 2018 (Draftroll_2018.aspx) and UP 2017.
+ROLL_YEAR <- c(raj = 2018L, up = 2017L)
 
 # Approximate published electorate sizes; 02a flags >10% deviation
 EXPECTED_ELECTORS <- c(raj = 41e6, up = 140e6)
@@ -46,6 +46,17 @@ CYCLES <- list(
 EXPOSURE_WINDOWS <- list(main = c(5, 15), alt1 = c(6, 16), alt2 = c(10, 16))
 
 PLACEBO_MAX_BIRTH_YEAR <- 1985L
+
+# Observation-age bands for the early-marriage-margin analysis (06f).
+# "Married by X" is observable only for the cohort observed at age X, so the
+# dose coefficient within a band estimates the effect on marriage by that age.
+# Age 18 is excluded: 18-year-olds barely register in draft rolls.
+OBS_AGE_BANDS <- list(
+    "19-21" = c(19, 21),
+    "22-25" = c(22, 25),
+    "26-30" = c(26, 30),
+    "31-36" = c(31, 36)
+)
 
 AGE_MIN <- 18L
 AGE_MAX <- 110L

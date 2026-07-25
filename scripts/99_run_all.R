@@ -96,6 +96,7 @@ run_script("06b_natal_design.R")
 run_script("06c_random_rotation.R")
 run_script("06d_placebo.R")
 run_script("06e_sensitivity.R")
+run_script("06f_early_marriage.R")
 run_script("07a_balance.R")
 
 message("\n### PHASE 6: VALIDATION ###")
