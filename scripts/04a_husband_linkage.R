@@ -41,26 +41,6 @@ for (state in c("raj", "up")) {
         if (file.exists(chunk_out)) next
         chunk_glob <- file.path(electors_dir, dp, "*.parquet")
 
-        pairs <- dbGetQuery(con, sprintf("
-            SELECT
-                w.elector_uid AS wife_uid,
-                w.filename, w.house_no_clean,
-                w.age AS wife_age, w.birth_year AS wife_birth_year,
-                w.rel_name_dev, w.rel_name_std,
-                m.elector_uid AS husband_uid,
-                m.age AS husband_age,
-                m.name_dev AS husband_name_dev,
-                m.name_std AS husband_name_std
-            FROM read_parquet(%s) w
-            JOIN read_parquet(%s) m
-              ON w.filename = m.filename
-             AND w.house_no_clean = m.house_no_clean
-            WHERE w.sex_std = 'f'
-              AND w.relation_type = 'husband'
-              AND w.house_no_clean IS NOT NULL
-              AND m.sex_std = 'm'",
-            dbQuoteString(con, chunk_glob), dbQuoteString(con, chunk_glob)))
-
         n_married_with_hh <- dbGetQuery(con, sprintf("
             SELECT count(*) AS n
             FROM read_parquet(%s)
@@ -68,40 +48,77 @@ for (state in c("raj", "up")) {
               AND house_no_clean IS NOT NULL",
             dbQuoteString(con, chunk_glob)))$n
 
-        if (nrow(pairs) == 0) {
+        # Big districts blow R's vector limit if their candidate pairs are
+        # pulled at once; process in hash buckets of ~250k married women
+        n_buckets <- max(1L, ceiling(n_married_with_hh / 250000))
+        scored_parts <- vector("list", n_buckets)
+        n_pairs_total <- 0L
+
+        for (b in seq_len(n_buckets) - 1L) {
+            pairs <- dbGetQuery(con, sprintf("
+                SELECT
+                    w.elector_uid AS wife_uid,
+                    w.filename, w.house_no_clean,
+                    w.age AS wife_age, w.birth_year AS wife_birth_year,
+                    w.rel_name_dev, w.rel_name_std,
+                    m.elector_uid AS husband_uid,
+                    m.age AS husband_age,
+                    m.name_dev AS husband_name_dev,
+                    m.name_std AS husband_name_std
+                FROM read_parquet(%s) w
+                JOIN read_parquet(%s) m
+                  ON w.filename = m.filename
+                 AND w.house_no_clean = m.house_no_clean
+                WHERE w.sex_std = 'f'
+                  AND w.relation_type = 'husband'
+                  AND w.house_no_clean IS NOT NULL
+                  AND m.sex_std = 'm'
+                  AND hash(w.elector_uid) %% %d = %d",
+                dbQuoteString(con, chunk_glob), dbQuoteString(con, chunk_glob),
+                n_buckets, b))
+
+            if (nrow(pairs) == 0) next
+            n_pairs_total <- n_pairs_total + nrow(pairs)
+
+            dev_exact <- !is.na(pairs$rel_name_dev) & !is.na(pairs$husband_name_dev) &
+                pairs$rel_name_dev != "" & pairs$rel_name_dev == pairs$husband_name_dev
+            d_std <- stringdist::stringdist(pairs$rel_name_std, pairs$husband_name_std,
+                                            method = "jw")
+            pairs$dist <- ifelse(dev_exact, 0, d_std)
+
+            scored_parts[[b + 1L]] <- pairs |>
+                filter(!is.na(dist)) |>
+                group_by(wife_uid) |>
+                arrange(dist, husband_uid, .by_group = TRUE) |>
+                summarise(
+                    filename = first(filename),
+                    house_no_clean = first(house_no_clean),
+                    wife_age = first(wife_age),
+                    wife_birth_year = first(wife_birth_year),
+                    husband_uid = first(husband_uid),
+                    husband_age = first(husband_age),
+                    match_distance = first(dist),
+                    runner_up = if (n() > 1) nth(dist, 2) else NA_real_,
+                    n_candidates = n(),
+                    .groups = "drop"
+                ) |>
+                filter(
+                    match_distance <= JW_HUSBAND,
+                    n_candidates == 1 | is.na(runner_up) |
+                        (runner_up - match_distance) >= JW_HUSBAND_MARGIN
+                )
+            rm(pairs)
+        }
+
+        scored_bound <- bind_rows(scored_parts)
+        if (nrow(scored_bound) == 0) {
             stats[[dp]] <- tibble(district_part = dp,
                                   n_married_with_hh = n_married_with_hh,
-                                  n_pairs = 0L, n_linked = 0L)
+                                  n_pairs = n_pairs_total, n_linked = 0L)
             next
         }
 
-        dev_exact <- !is.na(pairs$rel_name_dev) & !is.na(pairs$husband_name_dev) &
-            pairs$rel_name_dev != "" & pairs$rel_name_dev == pairs$husband_name_dev
-        d_std <- stringdist::stringdist(pairs$rel_name_std, pairs$husband_name_std,
-                                        method = "jw")
-        pairs$dist <- ifelse(dev_exact, 0, d_std)
-
-        scored <- pairs |>
-            filter(!is.na(dist)) |>
-            group_by(wife_uid) |>
-            arrange(dist, husband_uid, .by_group = TRUE) |>
-            summarise(
-                filename = first(filename),
-                house_no_clean = first(house_no_clean),
-                wife_age = first(wife_age),
-                wife_birth_year = first(wife_birth_year),
-                husband_uid = first(husband_uid),
-                husband_age = first(husband_age),
-                match_distance = first(dist),
-                runner_up = if (n() > 1) nth(dist, 2) else NA_real_,
-                n_candidates = n(),
-                .groups = "drop"
-            ) |>
-            filter(
-                match_distance <= JW_HUSBAND,
-                n_candidates == 1 | is.na(runner_up) |
-                    (runner_up - match_distance) >= JW_HUSBAND_MARGIN
-            ) |>
+        scored <- scored_bound |>
             group_by(husband_uid) |>
             mutate(husband_contested = n() > 1) |>
             ungroup() |>
@@ -117,7 +134,7 @@ for (state in c("raj", "up")) {
         stats[[dp]] <- tibble(
             district_part = dp,
             n_married_with_hh = n_married_with_hh,
-            n_pairs = nrow(pairs),
+            n_pairs = n_pairs_total,
             n_linked = nrow(scored)
         )
     }

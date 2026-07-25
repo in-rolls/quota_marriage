@@ -1,0 +1,618 @@
+lgd_district,mandal_std,subdistrict_ref,tehsil_match_distance
+agra,aagaraa,NA,NA
+agra,kiraavalee,NA,NA
+agra,khairaagadh,NA,NA
+agra,phathehaabaad,NA,NA
+azamgarh,badhanapur,burhanpur,0.2216931216931217
+azamgarh,sagadee,NA,NA
+azamgarh,phoolapur,phulpur,0.1587301587301588
+azamgarh,rak,NA,NA
+azamgarh,maartinagamj,NA,NA
+azamgarh,nijaamaabaad,nizamabad,0.2314814814814816
+azamgarh,laalagamj,lalganj,0.24206349206349215
+azamgarh,maimhanagar,NA,NA
+aligarh,khair,khair,5.551115123125783e-17
+aligarh,gabhaanaa,gabhana,0.12169312169312176
+aligarh,atharoulee,atrauli,0.2365079365079366
+aligarh,kool,koil,0.1666666666666667
+aligarh,igalaas,iglas,0.16190476190476197
+ambedkar nagar,t൉adaa,tanda,0.17777777777777778
+ambedkar nagar,bheetee,NA,NA
+ambedkar nagar,aalaapur,allapur,0.18650793650793648
+ambedkar nagar,jalaalapur,jalalpur,0.06666666666666678
+ambedkar nagar,akabarapur,akbarpur,0.10833333333333345
+amethi,goureegamj,gauriganj,0.24444444444444452
+amethi,amethee,amethi,0.1507936507936509
+auraiya,bidhunaa,bidhuna,0.04166666666666672
+auraiya,auraiyaa,auraiya,0.04166666666666672
+baghpat,badouth,NA,NA
+banda,pailaanee,pailani,0.1587301587301588
+banda,baberoo,baberu,0.1507936507936509
+banda,atharraa,atarra,0.08333333333333338
+bara banki,phathehapur,NA,NA
+bara banki,raamanagar,ramnagar,0.1500000000000001
+bara banki,navaabagamj,NA,NA
+bara banki,haidaragadh,haidergarh,0.2200757575757576
+bara banki,siroulee gaaasapur,sirauli gauspur,0.23960113960113968
+bara banki,raamasaneheeghaat,ramsanehighat,0.23479135243841137
+banda,badaayoo,banda,0.23333333333333345
+banda,badaayaa,banda,0.23333333333333345
+bahraich,baharaaich,bahraich,0.10833333333333345
+bahraich,feet,NA,NA
+bahraich,mahasee,mahasi,0.1507936507936509
+bahraich,payaagapur,payagpur,0.06666666666666678
+balrampur,utharoulaa,utraula,0.14761904761904773
+balrampur,balaraamapur,balrampur,0.12037037037037043
+ballia,beltharaa rood,belthara road,0.07509157509157517
+ballia,rasadaa,rasra,0.20952380952380956
+ballia,baliyaa,ballia,0.1507936507936509
+bareilly,barelee,bareilly,0.22023809523809523
+bareilly,bahedee,NA,NA
+bareilly,phareedapur,faridpur,0.23484848484848492
+bareilly,aaavalaa,NA,NA
+basti,bhaanapur,bhanpur,0.07407407407407415
+basti,rudhoulee,rudhauli,0.19444444444444453
+basti,basthee,basti,0.20952380952380956
+bhadohi,jnjaanapur,NA,NA
+bhadohi,auraaee,aurai,0.20952380952380956
+bijnor,dhaamapur,dhampur,0.07407407407407415
+bijnor,bijanour,bijnor,0.08333333333333338
+bijnor,chaaadapur,chandpur,0.14166666666666666
+bulandshahr,sikandraabaad,sikandrabad,0.08158508158508157
+bulandshahr,bulandasahar,bulandshahr,0.13585858585858596
+bulandshahr,syaanaa,NA,NA
+bulandshahr,gail,NA,NA
+bulandshahr,khurjaa,khurja,0.04761904761904765
+bulandshahr,anoopasahar,NA,NA
+chandauli,chandoulee,chandauli,0.1740740740740741
+chitrakoot,karvee,NA,NA
+etah,aleegamj,aliganj,0.22023809523809523
+etah,etaa,etah,0.1666666666666667
+etah,jalesar,jalesar,5.551115123125783e-17
+ghazipur,jakhaniyaa,jakhania,0.06666666666666678
+ghazipur,saidapur,saidpur,0.04166666666666672
+ghazipur,gaajeepur,NA,NA
+ghazipur,kaasimaabaad,kasimabad,0.19444444444444453
+ghazipur,muhammadaabaad,mohammadabad,0.12950937950937963
+ghazipur,jamaaniyaa,NA,NA
+ghazipur,sevaraaee,sewarai,0.24338624338624346
+ghaziabad,loonee,NA,NA
+ghaziabad,moodeenagar,modinagar,0.12794612794612809
+ghaziabad,gaajiyaabaad,NA,NA
+agra,dibaaee,NA,NA
+gautam buddha nagar,paghanaghataa,NA,NA
+gonda,goondaa,gonda,0.09523809523809525
+gonda,tharabagamj,tarabganj,0.16961279461279474
+gonda,manakaapur,mankapur,0.10833333333333345
+gorakhpur,goorakhapur sadar,gorakhpur,0.1568627450980393
+gorakhpur,choureechouraa,chauri chaura,0.22216117216117215
+gorakhpur,baaasagaaav,NA,NA
+gorakhpur,goolaa,gola,0.11111111111111122
+gautam buddha nagar,daadaree,dadri,0.23333333333333345
+hapur,haapud,hapur,0.17777777777777778
+hathras,saasanee,sasni,0.23333333333333345
+hathras,haatharas,hathras,0.16931216931216936
+hathras,saadaabaad,sadabad,0.19523809523809532
+hathras,sikandaraa raaoo,sikandra rao,0.15277777777777787
+hathras,sikandaraa us,sikandra rao,0.19914529914529908
+hamirpur,hameerapur,hamirpur,0.14166666666666666
+hamirpur,mouadahaa,maudaha,0.12169312169312176
+hamirpur,moudahaa,maudaha,0.16071428571428578
+hardoi,bilagraam,bilgram,0.14550264550264563
+hardoi,haradooee,hardoi,0.20370370370370378
+hardoi,sandeelaa,sandila,0.1587301587301588
+farrukhabad,handiyaa,NA,NA
+farrukhabad,mejaa,NA,NA
+farrukhabad,ante,NA,NA
+farrukhabad,rag,NA,NA
+farrukhabad,rak,NA,NA
+farrukhabad,ilaahaabaad sadar,NA,NA
+farrukhabad,rat,NA,NA
+farrukhabad,rad,NA,NA
+farrukhabad,karachhanaa,NA,NA
+farrukhabad,srt,NA,NA
+farrukhabad,pnt,NA,NA
+etawah,itaavaa,NA,NA
+etawah,bharathanaa,bharthana,0.15319865319865317
+etawah,chakaranagar,chakarnagar,0.08838383838383843
+jalaun,maadhougadh,madhogarh,0.23211279461279474
+jalaun,jaaloun,jalaun,0.10317460317460315
+jalaun,kaalapee,kalpi,0.23333333333333345
+jhansi,jhhaaasee,NA,NA
+kanpur dehat,deraapur,derapur,0.04166666666666672
+kanpur dehat,maithaa,maitha,0.04761904761904765
+kanpur dehat,hha,NA,NA
+kanpur nagar,narvaln,narwal,0.1507936507936509
+kanpur nagar,kaanapur sadar,kanpur,0.19047619047619044
+kanpur nagar,narvathn,NA,NA
+kanpur nagar,ghaatamapur,ghatampur,0.09764309764309766
+kasganj,patiyaalee,patiyali,0.14166666666666666
+kannauj,chhibaraamaoo,chhibramau,0.20997150997151
+kheri,nighaasan,nighasan,0.07870370370370378
+kheri,moohammadee,mohammdi,0.16287878787878796
+kheri,lakheemapur,lakhimpur,0.12794612794612809
+kheri,mithoulee,mitauli,0.24338624338624346
+kheri,mithoolee,NA,NA
+kaushambi,mamjhhanapur,manjhanpur,0.19074074074074085
+kaushambi,chaayal,chail,0.20952380952380956
+kushinagar,khad൒adaa,khadda,0.1666666666666667
+kushinagar,padarounaa,padrauna,0.10833333333333345
+kushinagar,thamakuheeraaj,NA,NA
+kushinagar,eet,NA,NA
+kushinagar,haataa,hata,0.19444444444444453
+kushinagar,kapthaanagamj,kaptanganj,0.1914529914529914
+saharanpur,malihaabaad,NA,NA
+saharanpur,bakseekaathaalaab,NA,NA
+saharanpur,lakhanaoo,NA,NA
+lalitpur,thaalabehat,talbehat,0.21590909090909088
+lalitpur,paalee,NA,NA
+mahrajganj,pharendaa,pharenda,0.037037037037037104
+mahrajganj,nouthanavaa,NA,NA
+mahrajganj,nichaloul,nichlaul,0.07870370370370378
+mahrajganj,mahaaraajagamj,maharajganj,0.20887445887445885
+mahoba,mahoobaa,mahoba,0.08333333333333338
+mahoba,kulapahaad,kulpahar,0.236904761904762
+mainpuri,mainapuree,mainpuri,0.14166666666666666
+mainpuri,kuraavalee,kurawali,0.21666666666666667
+mainpuri,bhoogaaav,bhogaon,0.24206349206349215
+mainpuri,ghiroor,ghiror,0.04761904761904765
+mau,madhuban,madhuban,5.551115123125783e-17
+mau,ghoosee,ghosi,0.20952380952380956
+mathura,chhaathaa,chhata,0.1666666666666667
+mathura,maamt,NA,NA
+mathura,goovardhan,govardhan,0.033333333333333416
+mathura,mathuraa,mathura,0.04166666666666672
+mathura,mahaavan,mahavan,0.08928571428571432
+mathura,saradhanaa,NA,NA
+mathura,ade,NA,NA
+mathura,merath,mat,0.1666666666666667
+mirzapur,laalagamj,lalganj,0.24206349206349215
+mirzapur,sadar,NA,NA
+mirzapur,madihaan,marihan,0.130952380952381
+mirzapur,chunaar,chunar,0.04761904761904765
+muzaffarnagar,jaanasath,jansath,0.14550264550264563
+muzaffarnagar,khathaaoolee,NA,NA
+moradabad,muraadaabaad,moradabad,0.2314814814814816
+moradabad,thaakuradvaaraa,thakurdwara,0.24141414141414158
+moradabad,bilaaree,bilari,0.18055555555555555
+pilibhit,peeleebheeth,NA,NA
+pilibhit,rag,NA,NA
+pilibhit,beesalapur,bisalpur,0.14166666666666666
+ghaziabad,phaijaabaad,ghaziabad,0.242905242905243
+ghaziabad,beekaapur,NA,NA
+farrukhabad,pharookhaabaad,NA,NA
+farrukhabad,pharrookhaabaad,NA,NA
+farrukhabad,kaayamagamj,NA,NA
+farrukhabad,pharoomkhaabaad,NA,NA
+pratapgarh,bindakee,NA,NA
+pratapgarh,phathehapur,NA,NA
+firozabad,sikoohaabaad,shikohabad,0.2277777777777779
+firozabad,phiroojaabaad,NA,NA
+pratapgarh,laalagamj ajnjaaraa,NA,NA
+pratapgarh,kundaa,kunda,0.05555555555555556
+pratapgarh,dust,NA,NA
+pratapgarh,hust,NA,NA
+pratapgarh,raaneegamj,NA,NA
+pratapgarh,pattee,patti,0.17777777777777778
+rampur,taandaa,tanda,0.19523809523809518
+rampur,bilaasapur,bilaspur,0.06666666666666678
+rampur,sadar,suar,0.21666666666666667
+rampur,saahaabaad,shahabad,0.236904761904762
+rampur,milk,milak,0.06666666666666678
+rae bareli,maharaajagamj,maharajganj,0.15722610722610725
+rae bareli,raayabarelee,NA,NA
+rae bareli,laalagamj,lalganj,0.24206349206349215
+rae bareli,dalamaoo,dalmau,0.24722222222222212
+rae bareli,dalramaoo,NA,NA
+rae bareli,ooachaahaar,NA,NA
+saharanpur,puvaayaa,NA,NA
+saharanpur,saahajahaaapur,NA,NA
+shamli,saamalee,NA,NA
+saharanpur,behat,behat,5.551115123125783e-17
+saharanpur,sec,NA,NA
+saharanpur,nakud,nakur,0.13333333333333336
+saharanpur,sahaaranapur,saharanpur,0.08888888888888892
+saharanpur,raamapur manihaaran,rampur maniharan,0.18804824561403516
+sambhal,sambhal,sambhal,5.551115123125783e-17
+sambhal,gunnour,gunnaur,0.09523809523809525
+sambhal,aik,NA,NA
+sitapur,mahoolee,maholi,0.18055555555555555
+sitapur,seethaapur,sitapur,0.18095238095238095
+sitapur,laharapur,laharpur,0.037037037037037104
+sitapur,bisavaa,NA,NA
+sitapur,mahamoodaabaad,mahmudabad,0.24497354497354504
+sitapur,sidhoolee,NA,NA
+sitapur,sidhoulee,sidhauli,0.19444444444444453
+siddharthnagar,sooharathagadh,shohratgarh,0.20887445887445885
+siddharthnagar,ale,NA,NA
+siddharthnagar,alate,NA,NA
+siddharthnagar,b൉asee,NA,NA
+siddharthnagar,baaasee,NA,NA
+siddharthnagar,itavaa,NA,NA
+siddharthnagar,dmariyaagamj,domariyaganj,0.14444444444444443
+sonbhadra,raabartsagamj,NA,NA
+sonbhadra,duddhee,dudhi,0.20952380952380956
+shrawasti,bhinagaa,bhinga,0.1388888888888889
+shrawasti,jamunahaa,jamunaha,0.037037037037037104
+shrawasti,ikounaa,ikauna,0.1507936507936509
+sultanpur,uulthaanapur,sultanpur,0.14814814814814825
+sultanpur,khulthaanapur,sultanpur,0.16524216524216528
+sultanpur,kaadeepur,kadipur,0.1587301587301588
+unnao,b൉agaramaoo,bangarmau,0.242905242905243
+unnao,sapheepur,safipur,0.24338624338624346
+unnao,hasanagamj,hasanganj,0.14537037037037034
+unnao,puravaa,purwa,0.20952380952380956
+unnao,unnaav,unnao,0.17777777777777778
+varanasi,pindaraa,pindra,0.1388888888888889
+varanasi,vaaraanasee,NA,NA
+varanasi,raajaathaalaab,rajatalab,0.21164021164021168
+agra,ethmaadapur,etmadpur,0.09090909090909088
+azamgarh,aajamagadh sadar,NA,NA
+azamgarh,wet,NA,NA
+baghpat,baagapath,baghpat,0.24206349206349215
+banda,narainee,naraini,0.130952380952381
+banda,facet,NA,NA
+banda,bisoolee,NA,NA
+banda,sahasavaan,NA,NA
+bahraich,miheempuravaa mootheepur,NA,NA
+bahraich,naanapaaraa,nanpara,0.2164502164502165
+bahraich,feat,NA,NA
+balrampur,thulaseepur,tulsipur,0.16287878787878796
+ballia,sikandarapur,sikanderpur,0.08585858585858598
+ballia,baaasadeeh,NA,NA
+bareilly,meeragamj,meerganj,0.16335978835978843
+bareilly,navaabagamj,NA,NA
+basti,harraiyaa,harraiya,0.037037037037037104
+basti,harrayaa,harraiya,0.08333333333333338
+basti,harreyaa,harraiya,0.130952380952381
+bhadohi,bhadoohee,bhadohi,0.1587301587301588
+bijnor,najeebaabaad,najibabad,0.18981481481481494
+bijnor,namgeenaa,nagina,0.20370370370370378
+bijnor,paamapur,dhampur,0.22023809523809523
+bulandshahr,tale,NA,NA
+chandauli,sakaladeehaa,sakaldiha,0.21064814814814825
+chandauli,m൒ugalasaraay,NA,NA
+chitrakoot,maanikapur,manikpur,0.06666666666666678
+auraiya,barahaj,NA,NA
+ghazipur,saivaraaee,NA,NA
+ghazipur,arts,NA,NA
+agra,sikaarapur,NA,NA
+agra,anoopasahar,NA,NA
+gonda,karanailagamj,NA,NA
+hapur,dhoulaanaa,dhaulana,0.12916666666666676
+hapur,gadhamukthesvar,garhmukteshwar,0.15595238095238104
+hapur,haashud,NA,NA
+hamirpur,sareelaa,sarila,0.18055555555555555
+hamirpur,raath,rath,0.06666666666666678
+hardoi,saahaabaad,shahabad,0.236904761904762
+hardoi,savaayajapur,sawayajpur,0.1537037037037038
+farrukhabad,sooraav൑,NA,NA
+farrukhabad,sooraavam,NA,NA
+etawah,jasavanthanagar,jaswantnagar,0.19242424242424244
+etawah,saiphaee,NA,NA
+etawah,thaakhaa,NA,NA
+jalaun,uraee,NA,NA
+jhansi,maooraaneepur,mauranipur,0.19487179487179482
+jhansi,mooth,moth,0.06666666666666678
+jaunpur,saahagamj,NA,NA
+kanpur dehat,sikandaraa,sikandra,0.10833333333333345
+kanpur dehat,bhooganeepur,bhognipur,0.14814814814814825
+kanpur dehat,ahn,NA,NA
+kanpur dehat,akabarapur,akbarpur,0.10833333333333345
+kasganj,kaasagamj,kasganj,0.24206349206349215
+kasganj,sahaavar,sahawar,0.130952380952381
+kannauj,thirvaa,tirwa,0.20952380952380956
+kannauj,kannouj,kannauj,0.09523809523809525
+kheri,paliyaa,palia,0.09523809523809525
+kheri,dhouraharaa,dhaurahara,0.14696969696969703
+kushinagar,kasayaa,kasya,0.16190476190476197
+saharanpur,saroojanee nagar,NA,NA
+saharanpur,moohanalaalagamj,NA,NA
+mau,maoonaath bhamjan,maunath bhanjan,0.22543991955756676
+mau,moohammadaabaad goohanaa,muhammadabad gohna,0.20397603485838786
+mathura,art,NA,NA
+muzaffarnagar,budhaanaa,budhana,0.12169312169312176
+muzaffarnagar,mujaphpharanagar,NA,NA
+pilibhit,pooranapur,puranpur,0.14166666666666666
+ghaziabad,milkeepur,NA,NA
+ghaziabad,soohaaval,NA,NA
+farrukhabad,amrithapur,amritpur,0.06666666666666678
+pratapgarh,khaagaa,NA,NA
+firozabad,jasaraanaa,jasrana,0.19523809523809532
+firozabad,sirasaagamj,sirsaganj,0.2112794612794614
+pratapgarh,sadar,NA,NA
+pratapgarh,laalagamj ajhhaaraa,NA,NA
+saharanpur,thitharahar,NA,NA
+shamli,oon,NA,NA
+saharanpur,devaband,deoband,0.18650793650793648
+sambhal,chandousee,chandausi,0.1740740740740741
+sant kabir nagar,memhadaaval,mehdawal,0.21049783549783557
+sant kabir nagar,khaleelaabaad,khalilabad,0.17293447293447295
+sant kabir nagar,paghanaghataa,NA,NA
+siddharthnagar,alae,NA,NA
+siddharthnagar,nougadh,naugarh,0.19047619047619044
+sonbhadra,ghooraaval,ghorawal,0.14166666666666666
+shrawasti,sale,NA,NA
+shrawasti,gale,NA,NA
+sultanpur,jayasimhapur,jaisinghpur,0.2436868686868687
+sultanpur,lambhuvaa,lambhua,0.07407407407407415
+azamgarh,memhanagar,mehnagar,0.1500000000000001
+hardoi,moohammadaabaad goohanaa,NA,NA
+hardoi,maoonaath bhamjan,NA,NA
+baghpat,khekadaa,khekada,0.04166666666666672
+banda,baaadaa,NA,NA
+banda,bilsee,NA,NA
+banda,daathaagamj,NA,NA
+bahraich,kaisaragamj,kaiserganj,0.2200757575757576
+ballia,bairiyaa,bairia,0.08333333333333338
+bijnor,ch൉adapur,chandpur,0.11574074074074082
+chandauli,mugalasaraay,NA,NA
+chitrakoot,maoo,NA,NA
+ghazipur,m൒ahammadaabaad,mohammadabad,0.237878787878788
+gorakhpur,kaimpiyaragamj,NA,NA
+farrukhabad,sooraav,NA,NA
+farrukhabad,karachhenaa,NA,NA
+farrukhabad,kooraavam,NA,NA
+farrukhabad,kooraav,NA,NA
+jhansi,taharaalee,NA,NA
+jhansi,taharoolee,NA,NA
+jhansi,taharoulee,tahrauli,0.1892857142857144
+jaunpur,badalaapur,badlapur,0.10833333333333345
+kanpur dehat,rasalaabaad,rasulabad,0.2112794612794614
+kanpur nagar,bilhour,bilhaur,0.09523809523809525
+kheri,goolaa gookarananaath,gola gokaran nath,0.2135562558356676
+kushinagar,heemtaa,NA,NA
+lalitpur,maharounee,mahroni,0.18095238095238095
+lalitpur,mabhadaavaraa,NA,NA
+lalitpur,lalithapur,lalitpur,0.06666666666666678
+mahoba,charakhaaree,charkhari,0.21064814814814825
+mainpuri,kisanee,NA,NA
+mainpuri,karahal,karhal,0.10317460317460315
+muzaffarnagar,khathoolee,NA,NA
+moradabad,k൉ath,kanth,0.13333333333333336
+pilibhit,ra,NA,NA
+ghaziabad,rudoulee,NA,NA
+ghaziabad,rudaaalee,NA,NA
+rampur,savaar,NA,NA
+rampur,daandaa,NA,NA
+saharanpur,jalaalaabaad,NA,NA
+saharanpur,thilahar,NA,NA
+saharanpur,ass,NA,NA
+sultanpur,balaldeeraay,NA,NA
+ambedkar nagar,memhadaaval,NA,NA
+ambedkar nagar,khaleelaabaad,NA,NA
+agra,ae,NA,NA
+agra,baah,bah,0.08333333333333338
+ambedkar nagar,cist,NA,NA
+amethi,musaaphirakhaanaa,musafirkhana,0.23633392751039814
+auraiya,ajeethamal,ajitmal,0.2365079365079366
+bulandshahr,dibaaee,NA,NA
+gorakhpur,sahajanavaa,NA,NA
+gorakhpur,khajanee,khajni,0.18055555555555555
+gautam buddha nagar,gouthamabuddhanagar,gautam buddha nagar,0.13880288957688341
+gautam buddha nagar,jevar,jewar,0.13333333333333336
+farrukhabad,baaraa,NA,NA
+jhansi,garouthaa,garautha,0.11574074074074082
+kanpur nagar,narvath,NA,NA
+kaushambi,siraathoo,sirathu,0.1587301587301588
+mathura,adler,NA,NA
+mathura,mavaanaa,mahavan,0.18650793650793648
+muzaffarnagar,khathaaoulee,khatauli,0.18055555555555555
+farrukhabad,pharrukhaabaad,farrukhabad,0.2422077922077922
+saharanpur,ae,NA,NA
+saharanpur,see,NA,NA
+sambhal,dealt,NA,NA
+unnao,beeghaapur,bighapur,0.14166666666666666
+agra,ethmaathapur,etmadpur,0.18055555555555555
+ambedkar nagar,ahn,NA,NA
+bara banki,siroulee gousapur,sirauli gauspur,0.16133735545500258
+bulandshahr,sikaarapur,shikarpur,0.10370370370370369
+jalaun,kooch,konch,0.13333333333333336
+jalaun,koomch,konch,0.17777777777777778
+jhansi,ator,NA,NA
+kheri,piyaa,NA,NA
+kheri,mithaaoulee,mitauli,0.19913419913419916
+kushinagar,kesayaa,kasya,0.16190476190476197
+mathura,ale,NA,NA
+firozabad,ndalaa,tundla,0.22222222222222238
+firozabad,handalaa,NA,NA
+shamli,kairaanaa,kairana,0.12169312169312176
+sitapur,misrikh,misrikh,5.551115123125783e-17
+siddharthnagar,noumgadh,naugarh,0.22023809523809523
+hardoi,dhaghoosee,NA,NA
+banda,bisoulee,NA,NA
+bhadohi,janjaanapur,NA,NA
+chitrakoot,raajaapur,rajapur,0.12169312169312176
+hathras,near us,NA,NA
+farrukhabad,prt,NA,NA
+jhansi,ale,NA,NA
+jhansi,alo,NA,NA
+pilibhit,rak,NA,NA
+sultanpur,baldeeraay,baldirai,0.21666666666666667
+sultanpur,uu൒althaanapur,NA,NA
+bara banki,siroulee gaasapur,sirauli gauspur,0.22543991955756676
+bulandshahr,iulandasahar,bulandshahr,0.19949494949494945
+hathras,fara us,NA,NA
+hathras,hear ws,NA,NA
+kanpur dehat,aha,NA,NA
+kanpur dehat,suk,NA,NA
+mainpuri,terr,NA,NA
+moradabad,kaath,kanth,0.13333333333333336
+firozabad,sell,NA,NA
+pratapgarh,ooundaa,kunda,0.20952380952380956
+bulandshahr,baiulandasahar,NA,NA
+ambedkar nagar,paghanaghataa,NA,NA
+gonda,must,NA,NA
+hathras,bea,NA,NA
+jhansi,t൒aharoulee,tahrauli,0.21049783549783557
+kanpur dehat,ideraapur,derapur,0.07407407407407415
+kushinagar,ssl,NA,NA
+kushinagar,ele,NA,NA
+firozabad,hrindalaa,NA,NA
+kushinagar,usst,NA,NA
+kushinagar,gst,NA,NA
+azamgarh,werk,NA,NA
+bahraich,agel,NA,NA
+auraiya,devariyaa,auraiya,0.24338624338624346
+ghazipur,saievaraaee,NA,NA
+hathras,tara us,NA,NA
+kanpur nagar,narval,narwal,0.11111111111111106
+kannauj,tear,NA,NA
+muzaffarnagar,atch,NA,NA
+pilibhit,enapur,NA,NA
+pratapgarh,tet,NA,NA
+saharanpur,demvaband,deoband,0.2142857142857143
+saharanpur,ads,NA,NA
+hapur,dhoulathraanaa,dhaulana,0.24702380952380965
+kanpur dehat,repeat,NA,NA
+kushinagar,erect,NA,NA
+saharanpur,ags,NA,NA
+siddharthnagar,alee,NA,NA
+muzaffarnagar,khathoulee,khatauli,0.21666666666666667
+saharanpur,jat,NA,NA
+saharanpur,jaret,NA,NA
+sambhal,edhe,NA,NA
+azamgarh,george,NA,NA
+chandauli,chakiyaa,chakia,0.08333333333333338
+farrukhabad,ana,NA,NA
+kanpur nagar,facet,NA,NA
+siddharthnagar,iamtavaa,NA,NA
+ballia,wast,NA,NA
+bijnor,chaa൉adapur,chandpur,0.16287878787878796
+farrukhabad,int,NA,NA
+kushinagar,khadadaa,khadda,0.1388888888888889
+farrukhabad,haindiyaa,NA,NA
+jalaun,fa,NA,NA
+kanpur nagar,adel,NA,NA
+bulandshahr,sale,NA,NA
+bijnor,wage,NA,NA
+jalaun,lo,NA,NA
+jhansi,als,NA,NA
+kanpur dehat,dairaapur,derapur,0.2142857142857143
+saharanpur,thithrahar,NA,NA
+sambhal,deak,NA,NA
+bahraich,fea,NA,NA
+pratapgarh,padattee,patti,0.23333333333333345
+ambedkar nagar,ist,NA,NA
+bijnor,snag,NA,NA
+gonda,manakaaeur,mankapur,0.1892857142857144
+ghaziabad,welder,NA,NA
+azamgarh,hee,NA,NA
+mathura,adie,NA,NA
+rampur,milak,milak,5.551115123125783e-17
+chandauli,afar,NA,NA
+hathras,meat us,NA,NA
+sambhal,geek,NA,NA
+hardoi,ghoosee,NA,NA
+kaushambi,rare,NA,NA
+sant kabir nagar,dhanaghataa,ghanghata,0.23211279461279474
+aligarh,iamgalaas,NA,NA
+kanpur dehat,sug,NA,NA
+firozabad,use,NA,NA
+bhadohi,saanapur,gyanpur,0.22023809523809523
+mainpuri,terk,NA,NA
+sambhal,dek,NA,NA
+hapur,eas,NA,NA
+ghazipur,maguhammadaabaad,NA,NA
+gorakhpur,b൉asagaaav,NA,NA
+farrukhabad,sooraaveam,NA,NA
+muzaffarnagar,khathaalee,khatauli,0.21666666666666667
+azamgarh,rag,NA,NA
+hapur,els,NA,NA
+kanpur dehat,raslaabaad,rasulabad,0.14537037037037034
+mahrajganj,nichalouth,nichlaul,0.1892857142857144
+bareilly,der,NA,NA
+chitrakoot,as,NA,NA
+farrukhabad,bilaaree,NA,NA
+sambhal,grunnour,gunnaur,0.130952380952381
+jalaun,kaamch,NA,NA
+sonbhadra,onder,NA,NA
+bhadohi,jaanapur,gyanpur,0.22023809523809523
+kanpur dehat,rakhalaabaad,NA,NA
+kheri,palniyaa,palia,0.12500000000000006
+sonbhadra,seal,NA,NA
+chandauli,chanandoulee,chandauli,0.18981481481481494
+saharanpur,garr,NA,NA
+bareilly,kabahedee,NA,NA
+banda,treet,NA,NA
+azamgarh,ra,NA,NA
+hardoi,madhuban,NA,NA
+kushinagar,kampthaanagamj,kaptanganj,0.20793650793650797
+moradabad,his,NA,NA
+ambedkar nagar,taaadaa,NA,NA
+farrukhabad,kooraavem,NA,NA
+basti,saleh,NA,NA
+farrukhabad,sirt,NA,NA
+pratapgarh,padhtee,NA,NA
+sultanpur,ulthaanapur,sultanpur,0.12794612794612809
+azamgarh,rat,NA,NA
+mau,aust,NA,NA
+hapur,tas,NA,NA
+kanpur dehat,rakhlaabaad,rasulabad,0.242905242905243
+sultanpur,sulthaanapur,sultanpur,0.08333333333333338
+kanpur nagar,paghaatamapur,ghatampur,0.19515669515669526
+farrukhabad,una,NA,NA
+saharanpur,namkud,nakur,0.17777777777777778
+baghpat,badaath,NA,NA
+kannauj,fear,NA,NA
+saharanpur,saroujanee nagar,NA,NA
+farrukhabad,soogaraav,NA,NA
+banda,teeter,NA,NA
+kanpur dehat,apa,NA,NA
+saharanpur,bakaseekaathaalaab,NA,NA
+sultanpur,khajhhulthaanapur,NA,NA
+sitapur,mahamooddaabaad,NA,NA
+kanpur dehat,sgt,NA,NA
+sonbhadra,dumdbee,NA,NA
+ambedkar nagar,tha,NA,NA
+basti,maoonaath bhamjan,NA,NA
+gonda,mst,NA,NA
+ambedkar nagar,dhanaghataa,NA,NA
+jalaun,pt,NA,NA
+ambedkar nagar,taa൉adaa,NA,NA
+hapur,haashad,NA,NA
+kushinagar,aat,NA,NA
+kanpur nagar,narvathr,NA,NA
+lalitpur,asin,NA,NA
+hardoi,dhoosee,NA,NA
+farrukhabad,kerachhanaa,NA,NA
+kheri,oferar,NA,NA
+sant kabir nagar,kundaa,NA,NA
+kanpur nagar,ader,NA,NA
+jhansi,ater,NA,NA
+shamli,ooan,NA,NA
+moradabad,kaaath,kanth,0.17777777777777778
+pilibhit,esanapur,NA,NA
+farrukhabad,ra,NA,NA
+farrukhabad,rar,NA,NA
+saharanpur,thilarahar,NA,NA
+kanpur dehat,sux,NA,NA
+kaushambi,fata,NA,NA
+saharanpur,teeter,NA,NA
+bulandshahr,alert,NA,NA
+pilibhit,eenapur,NA,NA
+mainpuri,frr,NA,NA
+kanpur nagar,facek,NA,NA
+jhansi,garoumthaa,garautha,0.14166666666666666
+mathura,fs,NA,NA
+pratapgarh,padtee,NA,NA
+farrukhabad,sooragaavem,NA,NA
+bara banki,eat,NA,NA
+hathras,reet raaoo,NA,NA
+ambedkar nagar,oakabarapur,akbarpur,0.13257575757575754
+pratapgarh,k൒undaa,kunda,0.09523809523809525
+gorakhpur,aaa,NA,NA
+farrukhabad,ona,NA,NA
+banda,pailani,pailani,5.551115123125783e-17
+farrukhabad,sint,NA,NA
+mathura,hic,NA,NA
+sonbhadra,gat,NA,NA
+bahraich,aedt,NA,NA
+farrukhabad,sooraavem,NA,NA
+bhadohi,iris,NA,NA
+mainpuri,kerahal,karhal,0.10317460317460315
+sultanpur,tae,NA,NA
+jalaun,he,NA,NA
+kanpur dehat,sig,NA,NA
+hardoi,mathuban,NA,NA
+azamgarh,kundaa,NA,NA

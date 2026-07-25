@@ -97,8 +97,11 @@ build_district_map <- function(roll_districts, ref_districts, override_path,
 clean_candidate_std <- function(x) {
     x <- gsub("[^a-z0-9 ]", "", coalesce(x, ""))
     x <- trimws(gsub("\\s+", " ", x))
+    # Ganganagar/Hanumangarh canal villages are named like "26 gb"; keep those
+    # verbatim. Everywhere else digits are OCR abbreviation marks
+    # (praa0 vi0 = primary school) or glued part numbers; turn them to spaces.
     is_chak <- grepl("^[0-9]+\\s*[a-z]{1,3}($|\\s)", x)
-    x <- ifelse(is_chak, x, sub("^[0-9]+\\s*", "", x))
+    x <- ifelse(is_chak, x, trimws(gsub("\\s+", " ", gsub("[0-9]+", " ", x))))
     ifelse(is.na(x) | nchar(x) < 3, NA_character_, x)
 }
 

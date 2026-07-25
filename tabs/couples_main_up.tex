@@ -1,0 +1,35 @@
+{\centering\scriptsize
+\begingroup
+\begin{tabular}{@{}lcccccc@{}}
+   \toprule
+   Mean gap & \multicolumn{6}{c}{2} \\ 
+   Gap $\geq$ 5 & \multicolumn{6}{c}{2} \\ 
+   Married & \multicolumn{6}{c}{2} \\ 
+                                                    & [i]           & [ii]          & [iii]         & [iv]          & [v]                  & [vi]\\  
+   \midrule 
+   Exposure dose (ages 5--15)                       & -0.10$^{***}$ & -0.08$^{***}$ & -0.00$^{**}$ & -0.00        & 0.00$^{***}$        & 0.00\\   
+                                                    & (0.03)        & (0.03)        & (0.00)       & (0.00)       & (0.00)              & (0.00)\\   
+   sc\_2005                                         & 0.02          &               & 0.00         &               & -0.00               &   \\   
+                                                    & (0.02)        &               & (0.00)       &               & (0.00)              &   \\   
+   st\_2005                                         & -1.0$^{***}$  &               & -0.06$^{**}$  &               & -0.00               &   \\   
+                                                    & (0.31)        &               & (0.03)        &               & (0.02)               &   \\   
+   obc\_2005                                        & -0.03$^{*}$   &               & -0.00$^{**}$ &               & 0.00$^{***}$        &   \\   
+                                                    & (0.02)        &               & (0.00)       &               & (0.00)             &   \\   
+   sc\_2010                                         & -0.01         &               & -0.00       &               & 0.00  &   \\   
+                                                    & (0.02)        &               & (0.00)       &               & (0.00)             &   \\   
+   st\_2010                                         & 0.16          &               & 0.00         &               & -0.00               &   \\   
+                                                    & (0.23)        &               & (0.02)        &               & (0.01)               &   \\   
+   obc\_2010                                        & 0.01         &               & 0.00        &               & -0.00              &   \\   
+                                                    & (0.02)        &               & (0.00)       &               & (0.00)              &   \\   
+   R$^2$                                            & 0.40          & 0.39          & 0.36          & 0.40          & 0.86                 & 0.86\\  
+   Observations                                     & 1,036,509     & 1,039,057     & 1,050,834     & 1,053,272     & 1,273,108            & 1,275,110\\  
+   (District, Block) $\times$ Cohort FE  & $\checkmark$  &               & $\checkmark$  &               & $\checkmark$         & \\  
+   GP FE                                 &               & $\checkmark$  &               & $\checkmark$  &                      & $\checkmark$\\   
+   District $\times$ Cohort FE           &               & $\checkmark$  &               & $\checkmark$  &                      & $\checkmark$\\   
+   \bottomrule
+\end{tabular}
+\par\endgroup
+\par}
+
+\vspace{0.5ex}
+\parbox{\linewidth}{\scriptsize \emph{Notes: } $^{***}$p$<$0.01; $^{**}$p$<$0.05; $^{*}$p$<$0.1. Cells are GP $\times$ wife birth cohort; weights are cell couple counts; standard errors clustered by GP. Treatment is the reservation history of the couple's GP of residence; given patrilocal exogamy this identifies husband-side/marriage-market exposure, not the bride's own childhood exposure.}
