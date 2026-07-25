@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+title: "quota_shaadi: Gender Quotas in Local Government and Marriage Outcomes at Census Scale"
+abstract: >-
+  Tests whether childhood exposure to female-reserved Gram Panchayat pradhan
+  seats changes women's marriage timing and spousal age gap, using parsed
+  Indian electoral rolls covering 173 million adults in Rajasthan and Uttar
+  Pradesh. Placebo cohorts with zero exposure reproduce much of the estimated
+  effect, so the design does not support a causal claim.
+authors:
+  - family-names: "Sood"
+    given-names: "Gaurav"
+    email: contact@gsood.com
+repository-code: "https://github.com/in-rolls/quota_shaadi"
+license: MIT
+keywords:
+  - gender quotas
+  - political reservation
+  - India
+  - electoral rolls
+  - marriage
+  - record linkage
+references:
+  - type: article
+    title: "Female Leadership Raises Aspirations and Educational Attainment for Girls: A Policy Experiment in India"
+    authors:
+      - family-names: "Beaman"
+        given-names: "Lori"
+      - family-names: "Duflo"
+        given-names: "Esther"
+      - family-names: "Pande"
+        given-names: "Rohini"
+      - family-names: "Topalova"
+        given-names: "Petia"
+    journal: "Science"
+    volume: 335
+    issue: 6068
+    start: 582
+    end: 586
+    year: 2012
+    doi: "10.1126/science.1212382"
