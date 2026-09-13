@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software or its results, please cite it as below."
-title: "quota_shaadi: Gender Quotas in Local Government and Marriage Outcomes at Census Scale"
+title: "quota_marriage: Gender Quotas in Local Government and Marriage Outcomes at Census Scale"
 abstract: >-
   Tests whether childhood exposure to female-reserved Gram Panchayat pradhan
   seats changes women's marriage timing and spousal age gap, using parsed
@@ -11,7 +11,7 @@ authors:
   - family-names: "Sood"
     given-names: "Gaurav"
     email: contact@gsood.com
-repository-code: "https://github.com/in-rolls/quota_shaadi"
+repository-code: "https://github.com/in-rolls/quota_marriage"
 license: MIT
 keywords:
   - gender quotas

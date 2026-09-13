@@ -1,5 +1,5 @@
 # 00_config.R
-# Central configuration for quota_shaadi
+# Central configuration for quota_marriage
 
 library(here)
 
@@ -111,7 +111,7 @@ NOTES_NATAL <- paste0(
 )
 
 # =============================================================================
-# FIGURE SETTINGS (vendored from quota_raj/scripts/00_config.R @ c6900d1)
+# FIGURE SETTINGS (vendored from quota_representation/scripts/00_config.R @ c6900d1)
 # =============================================================================
 
 theme_pub <- function(base_size = 11, base_family = "") {

@@ -55,7 +55,7 @@ Nothing large is committed. Numerical diagnostics in `data/audit/` and the sourc
 |---|---|---|
 | Harvard Dataverse [doi:10.7910/DVN/MUEGDT](https://doi.org/10.7910/DVN/MUEGDT) | Parsed electoral rolls, ~6.6 GB compressed: Rajasthan 2018 and UP 2017 | `Rscript scripts/01a_download_rolls.R` (optional `DATAVERSE_KEY`) |
 | [`local_elections_rajasthan`](https://github.com/in-rolls/local_elections_rajasthan) and [`local_elections_up`](https://github.com/in-rolls/local_elections_up) | Shared election histories and election-to-LGD links | Fixed commits and SHA256 in `data/sources.json`; fetched by `01b` |
-| [`in-rolls/quota_raj`](https://github.com/in-rolls/quota_raj) | Census 2001 covariates aggregated to LGD GPs | Pinned reference input; only Census columns are joined to the canonical election panels |
+| [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) | Census 2001 covariates aggregated to LGD GPs | Pinned reference input; only Census columns are joined to the canonical election panels |
 | [Rajasthan delimitation archive](https://doi.org/10.7910/DVN/SBF7DP) | Rajasthan delimitation: Devanagari village → GP | Original Dataverse file 7465072 and SHA256 pinned in `data/sources.json` |
 
 Note the roll vintages: **Rajasthan 2018 and UP 2017**, not the 2014/2018 pairing listed in the upstream `electoral_rolls` documentation. The year columns in the data itself (`Draftroll_2018.aspx` for Rajasthan) are authoritative, and `scripts/00_config.R` sets `ROLL_YEAR` accordingly.
@@ -88,8 +88,8 @@ It is not detected here. But as the findings above make clear, this design's own
 
 ```bash
 # 1. Clone
-git clone https://github.com/in-rolls/quota_shaadi.git
-cd quota_shaadi
+git clone https://github.com/in-rolls/quota_marriage.git
+cd quota_marriage
 
 # 2. Install R dependencies (R 4.6+; renv activates automatically)
 R -e "renv::restore()"
@@ -177,7 +177,7 @@ The diagnostics are the most informative part of this repository, and they mostl
 
 ## Related repositories
 
-- [`in-rolls/quota_raj`](https://github.com/in-rolls/quota_raj) — Reservation panels and the LGD crosswalk architecture; supplies treatment here
+- [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) — Reservation panels and the LGD crosswalk architecture; supplies treatment here
 - [`in-rolls/delim_raj`](https://github.com/in-rolls/delim_raj) — Rajasthan delimitation, Devanagari village-to-GP mappings
 - [`in-rolls/beaman`](https://github.com/in-rolls/beaman) — Replication of Beaman et al. (2012) with multiple-testing corrections
 - [`in-rolls/electoral_rolls`](https://github.com/in-rolls/electoral_rolls) — The parsed electoral roll data this analysis consumes

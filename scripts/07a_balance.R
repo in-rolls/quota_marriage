@@ -1,6 +1,6 @@
 # 07a_balance.R
 # Census 2001 covariate balance by treatment on the bridged analysis sample
-# (quota_raj 04d approach: normalized shares, t-tests).
+# (quota_representation 04d approach: normalized shares, t-tests).
 
 library(here)
 library(dplyr)

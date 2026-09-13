@@ -60,13 +60,13 @@
     "sha256": "01ce35bbaed75b94dc4b8272e31ad986eb1527dd30f7cc7ce0114f462acbb344"
   },
   "raj_census": {
-    "provider": "quota_raj",
+    "provider": "quota_representation",
     "ref": "50fbe05662a8f2a84c66e5b262df4c6c0051503d",
     "path": "data/raj/shrug_gp_raj_05_10_block.parquet",
     "sha256": "5dba8b158d7e9420fb73fd1bc7644af28d368e4497d2f000dad1575b468234fb"
   },
   "up_census": {
-    "provider": "quota_raj",
+    "provider": "quota_representation",
     "ref": "50fbe05662a8f2a84c66e5b262df4c6c0051503d",
     "path": "data/up/shrug_gp_up_05_10_block.parquet",
     "sha256": "f31c55e06a3ce361b2124eb8adbf4aa9a3a2dee7ef5e809fc9ffc25942aa1f62"

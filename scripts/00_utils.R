@@ -1,5 +1,5 @@
 # 00_utils.R
-# Sections marked "vendored" are copied from quota_raj/scripts/00_utils.R and
+# Sections marked "vendored" are copied from quota_representation/scripts/00_utils.R and
 # 05b_short_term_random_rotation.R @ c6900d1105170a1eece153ebbc7ca610250ba54d;
 # Historical origin is recorded in Git; functions used by this study are maintained here.
 

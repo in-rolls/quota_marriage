@@ -1,6 +1,6 @@
 # 06c_random_rotation.R
 # Restrict to districts where consecutive quota assignments are consistent
-# with an independent lottery (chi-square p > 0.05, quota_raj 04c/05b logic)
+# with an independent lottery (chi-square p > 0.05, quota_representation 04c/05b logic)
 # and re-run the primary specs of both designs.
 
 library(here)
