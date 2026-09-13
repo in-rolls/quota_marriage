@@ -3,17 +3,13 @@ library(dplyr)
 source('scripts/00_sources.R')
 test_that('source manifest rejects unknown files and corrupted cache entries', {
     expect_error(source_path('unlisted'), 'Unpinned source')
-    previous <- Sys.getenv('INDIA_DATA_HOME')
-    cache <- tempfile()
-    dir.create(cache)
-    Sys.setenv(INDIA_DATA_HOME = cache)
+    cache <- withr::local_tempdir()
+    withr::local_envvar(c(INDIA_DATA_HOME = cache))
     spec <- jsonlite::read_json('data/sources.json')$raj_lgd_directory
     path <- file.path(cache, spec$provider, spec$ref, spec$path)
     dir.create(dirname(path), recursive = TRUE)
     writeLines('damaged', path)
     expect_error(source_path('raj_lgd_directory'), 'Cached source checksum mismatch')
-    Sys.setenv(INDIA_DATA_HOME = previous)
-    unlink(cache, recursive = TRUE)
 })
 test_that('canonical treatment panels preserve source anchors and reservation assignments', {
     for (state in c('raj', 'up')) for (four_cycle in c(FALSE, TRUE)) {
