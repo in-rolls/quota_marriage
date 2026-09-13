@@ -1,7 +1,7 @@
 # 00_utils.R
 # Sections marked "vendored" are copied from quota_raj/scripts/00_utils.R and
 # 05b_short_term_random_rotation.R @ c6900d1105170a1eece153ebbc7ca610250ba54d;
-# 01b_import_quota_raj.R asserts they have not drifted from the source repo.
+# Historical origin is recorded in Git; functions used by this study are maintained here.
 
 library(stringi)
 library(stringdist)
@@ -67,72 +67,6 @@ normalize_devanagari <- function(input_string) {
     s <- stri_replace_all_regex(s, "\\p{P}", " ")
     s <- gsub("\\s+", " ", s)
     trimws(s)
-}
-
-# =============================================================================
-# FUZZY MATCHING (vendored)
-# =============================================================================
-
-#' Fuzzy match GP names within a block
-#' @param elex_row Single row from election data with elex_gp_std column
-#' @param lgd_block_gps Data frame of LGD GPs in the same block with gp_name_std column
-#' @param threshold Max JW distance for match (default 0.30)
-#' @param id_col Name of the ID column in elex_row (e.g., "sl_no_2010" or "key_2010")
-#' @param gp_col Name of the GP name column in elex_row (e.g., "gp_new_2010" or "gp_name_eng_2010")
-#' @return tibble with match info or NULL if no match
-fuzzy_match_within_block <- function(elex_row, lgd_block_gps, threshold = 0.30,
-                                      id_col = "id", gp_col = "gp_name") {
-    if (nrow(lgd_block_gps) == 0) return(NULL)
-
-    distances <- stringdist::stringdist(elex_row$elex_gp_std,
-                                        lgd_block_gps$gp_name_std,
-                                        method = "jw")
-
-    best_dist <- min(distances)
-    if (best_dist > threshold) return(NULL)
-
-    tied_indices <- which(distances == best_dist)
-    match_confidence <- "unique"
-    tie_count <- length(tied_indices)
-
-    if (tie_count > 1) {
-        elex_first_char <- substr(elex_row$elex_gp_std, 1, 1)
-        lgd_first_chars <- substr(lgd_block_gps$gp_name_std[tied_indices], 1, 1)
-        first_char_matches <- tied_indices[lgd_first_chars == elex_first_char]
-
-        if (length(first_char_matches) >= 1) {
-            tied_indices <- first_char_matches
-        }
-
-        if (length(tied_indices) > 1) {
-            tied_names <- lgd_block_gps$gp_name_std[tied_indices]
-            best_idx <- tied_indices[order(tied_names)[1]]
-        } else {
-            best_idx <- tied_indices[1]
-        }
-        match_confidence <- "tie_resolved"
-    } else {
-        best_idx <- tied_indices[1]
-    }
-
-    # Check for numeric mismatch
-    elex_numbers <- gsub("[^0-9]", "", elex_row$elex_gp_std)
-    lgd_numbers <- gsub("[^0-9]", "", lgd_block_gps$gp_name_std[best_idx])
-
-    if (nchar(elex_numbers) > 0 && nchar(lgd_numbers) > 0 && elex_numbers != lgd_numbers) {
-        match_confidence <- "numeric_mismatch"
-    }
-
-    result <- tibble::tibble(
-        lgd_gp_code = lgd_block_gps$gp_code[best_idx],
-        lgd_gp_name = lgd_block_gps$gp_name[best_idx],
-        match_distance = best_dist,
-        match_confidence = match_confidence,
-        tie_count = tie_count
-    )
-    result[[id_col]] <- elex_row[[id_col]]
-    result[[gp_col]] <- elex_row[[gp_col]]
-    return(result)
 }
 
 # Vectorized best-match within blocks: for each row of `queries`, find the

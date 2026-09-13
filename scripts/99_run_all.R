@@ -1,6 +1,5 @@
 # 99_run_all.R
 # Run the full pipeline. Execute from project root: Rscript scripts/99_run_all.R
-# Runner structure vendored from quota_raj/scripts/99_run_all.R @ c6900d1.
 
 library(here)
 
@@ -22,53 +21,28 @@ log_msg("Pipeline started")
 log_msg(paste("Log file:", log_file))
 
 results <- list()
-warning_count <- 0L
 
 run_script <- function(script_name) {
-    message("\n-------------------------------------------------------")
-    message("Running: ", script_name)
-    message("-------------------------------------------------------")
-
     log_msg(paste("Starting:", script_name))
     start_time <- Sys.time()
-
-    had_warning <- FALSE
-    warning_messages <- character()
-
-    tryCatch({
-        withCallingHandlers({
-            source(here("scripts", script_name))
-        }, warning = function(w) {
-            had_warning <<- TRUE
-            warning_messages <<- c(warning_messages, conditionMessage(w))
-            log_msg(paste("WARNING in", script_name, ":", conditionMessage(w)), "WARN")
-            invokeRestart("muffleWarning")
-        })
-
-        elapsed <- round(difftime(Sys.time(), start_time, units = "secs"), 1)
-
-        if (had_warning) {
-            warning_count <<- warning_count + length(warning_messages)
-            log_msg(paste("SUCCESS WITH WARNINGS:", script_name, "(", elapsed, "s)"), "WARN")
-            results[[script_name]] <<- "warning"
-            return("warning")
-        }
-
-        log_msg(paste("SUCCESS:", script_name, "(", elapsed, "s)"))
-        results[[script_name]] <<- "success"
-        return("success")
-    }, error = function(e) {
-        elapsed <- round(difftime(Sys.time(), start_time, units = "secs"), 1)
-        log_msg(paste("ERROR in", script_name, ":", e$message), "ERROR")
-        results[[script_name]] <<- "error"
-        stop(sprintf("Pipeline halted at %s after %ss: %s", script_name, elapsed, e$message))
-    })
+    status <- system2(
+        file.path(R.home("bin"), "Rscript"),
+        c("--vanilla", shQuote(here("scripts", script_name))),
+        env = paste0("R_LIBS=", shQuote(paste(.libPaths(), collapse = .Platform$path.sep)))
+    )
+    elapsed <- round(difftime(Sys.time(), start_time, units = "secs"), 1)
+    if (status != 0L) {
+        log_msg(paste("Failed:", script_name, "exit", status), "ERROR")
+        stop(sprintf("Pipeline halted at %s after %ss", script_name, elapsed))
+    }
+    results[[script_name]] <<- "success"
+    log_msg(paste("Finished:", script_name, "in", elapsed, "seconds"))
 }
 
 message("\n### PHASE 1: ACQUISITION ###")
 log_msg("=== PHASE 1: ACQUISITION ===")
 run_script("01a_download_rolls.R")
-run_script("01b_import_quota_raj.R")
+run_script("01b_prepare_sources.R")
 
 message("\n### PHASE 2: INGEST + CLEAN ###")
 log_msg("=== PHASE 2: INGEST + CLEAN ===")
@@ -102,6 +76,7 @@ run_script("07a_balance.R")
 message("\n### PHASE 6: VALIDATION ###")
 log_msg("=== PHASE 6: VALIDATION ===")
 run_script("08a_validate_benchmarks.R")
+run_script("98_validate.R")
 
 message("\n=======================================================")
 message("   PIPELINE SUMMARY")
@@ -109,5 +84,4 @@ message("=======================================================")
 for (s in names(results)) {
     message(sprintf("  %-35s %s", s, results[[s]]))
 }
-log_msg(sprintf("Pipeline finished: %d scripts, %d warnings",
-                length(results), warning_count))
+log_msg(sprintf("Pipeline finished: %d scripts", length(results)))

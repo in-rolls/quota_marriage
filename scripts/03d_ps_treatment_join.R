@@ -1,14 +1,14 @@
 # 03d_ps_treatment_join.R
-# Join the PS->GP bridges to the quota_raj treatment panels on lgd_gp_code.
-# Canonical treatment source: the 05-10 two-cycle panels (best coverage;
-# electors aged 18+ in the 2014/2018 rolls have no exposure overlap with the
-# 2015 cycle). treat_2015 is merged from the four-cycle panels where available.
+# Join polling-station bridges to the shared election histories on lgd_gp_code.
+# The 2005-2010 panels supply the broadest coverage; 2015 reservation is
+# attached from the four-cycle panels where available.
 
 library(here)
 library(dplyr)
 library(readr)
 
 source(here("scripts", "00_config.R"))
+source(here("scripts", "00_sources.R"))
 source(here("scripts", "00_utils.R"))
 
 BALANCE_COVARS <- c("pc01_pca_tot_p", "pc01_pca_tot_f", "pc01_pca_tot_m",
@@ -17,8 +17,7 @@ BALANCE_COVARS <- c("pc01_pca_tot_p", "pc01_pca_tot_f", "pc01_pca_tot_m",
 
 load_treatment <- function(state) {
     if (state == "raj") {
-        panel <- arrow::read_parquet(
-            here("data", "external", "quota_raj", "shrug_gp_raj_05_10_block.parquet")) |>
+        panel <- treatment_panel("raj", four_cycle = FALSE) |>
             transmute(
                 lgd_gp_code, lgd_gp_name_panel = lgd_gp_name, lgd_block_code,
                 treat_2005, treat_2010,
@@ -28,14 +27,12 @@ load_treatment <- function(state) {
                 panel_match_distance = match_distance,
                 across(any_of(BALANCE_COVARS))
             )
-        panel4 <- arrow::read_parquet(
-            here("data", "external", "quota_raj", "shrug_gp_raj_05_20_block.parquet")) |>
+        panel4 <- treatment_panel("raj", four_cycle = TRUE) |>
             select(lgd_gp_code, treat_2015, count_treated) |>
             filter(!is.na(lgd_gp_code)) |>
             distinct(lgd_gp_code, .keep_all = TRUE)
     } else {
-        panel <- arrow::read_parquet(
-            here("data", "external", "quota_raj", "shrug_gp_up_05_10_block.parquet")) |>
+        panel <- treatment_panel("up", four_cycle = FALSE) |>
             transmute(
                 lgd_gp_code, lgd_gp_name_panel = lgd_gp_name, lgd_block_code,
                 treat_2005, treat_2010,
@@ -48,8 +45,7 @@ load_treatment <- function(state) {
                 panel_match_distance = match_distance,
                 across(any_of(BALANCE_COVARS))
             )
-        panel4 <- arrow::read_parquet(
-            here("data", "external", "quota_raj", "shrug_gp_up_05_21_block.parquet")) |>
+        panel4 <- treatment_panel("up", four_cycle = TRUE) |>
             select(lgd_gp_code, treat_2015, count_treated) |>
             filter(!is.na(lgd_gp_code)) |>
             distinct(lgd_gp_code, .keep_all = TRUE)

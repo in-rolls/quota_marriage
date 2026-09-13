@@ -3,16 +3,6 @@
 
 library(here)
 
-# =============================================================================
-# EXTERNAL REPO PATHS (read-only; snapshotted by 01b)
-# =============================================================================
-
-QUOTA_RAJ_DIR <- Sys.getenv("QUOTA_RAJ_DIR",
-    unset = normalizePath(file.path(here(), "..", "quota_raj"), mustWork = FALSE))
-DELIM_RAJ_DIR <- Sys.getenv("DELIM_RAJ_DIR",
-    unset = normalizePath(file.path(here(), "..", "delim_raj"), mustWork = FALSE))
-
-# =============================================================================
 # DATAVERSE (parsed electoral rolls)
 # =============================================================================
 

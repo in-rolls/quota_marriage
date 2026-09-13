@@ -12,18 +12,18 @@ The core problem is the placebo. Women born on or before 1985 finished childhood
 
 | State | s2 (block × cohort FE) | s3 (GP FE, primary) | Placebo, dose ≡ 0 |
 |---|---|---|---|
-| Rajasthan | −0.085 (p = .021) | −0.053 (p = .137) | **−0.043 (p = .015)** |
-| Uttar Pradesh | −0.103 (p = .0007) | −0.077 (p = .007) | **−0.027 (p = .036)** |
+| Rajasthan | −0.086 (p = .021) | −0.053 (p = .135) | **−0.043 (p = .015)** |
+| Uttar Pradesh | −0.101 (p = .001) | −0.076 (p = .008) | **−0.033 (p = .010)** |
 
-Outcome is mean spousal age gap in years. The placebo coefficient is 50–80% of the Rajasthan estimate and 26–35% of the UP estimate, and is itself significant. Whatever produces the "treatment" effect also operates on women whose childhoods predate the treatment.
+Outcome is mean spousal age gap in years. The placebo coefficient is 51–81% of the Rajasthan estimate and 33–44% of the UP estimate, and is itself significant. Whatever produces the "treatment" effect also operates on women whose childhoods predate the treatment.
 
 Three further reasons not to read these as causal:
 
-- **The signs run backwards.** More exposure predicts *more* women married (Rajasthan `share_married_w`, s2: +0.0141, p = .005) and *fewer* women still in the natal home (`natal_share_w`, s2: −0.0139, p = .005). Both point toward earlier marriage, the opposite of the aspirations hypothesis.
-- **The two states disagree.** UP's marriage-share and natal results collapse to zero once GP fixed effects absorb cross-village differences: `share_married_w` s3 = +0.0003 (p = .95), `natal_share_w` s3 = −0.0001 (p = .97). Only the spousal-gap estimate survives in UP, and that is the outcome with the worst placebo contamination.
+- **The signs run backwards.** More exposure predicts *more* women married (Rajasthan `share_married_w`, s2: +0.0141, p = .005) and *fewer* women still in the natal home (`natal_share_w`, s2: −0.0139, p = .006). Both point toward earlier marriage, the opposite of the aspirations hypothesis.
+- **The two states disagree.** UP's marriage-share and natal results collapse to zero once GP fixed effects absorb cross-village differences: `share_married_w` s3 = +0.0012 (p = .77), `natal_share_w` s3 = −0.0011 (p = .77). Only the spousal-gap estimate survives in UP, and that is the outcome with the worst placebo contamination.
 - **The magnitudes are negligible.** A coefficient of −0.08 on a dose that runs 0 to 1 means roughly one month of spousal age gap at full exposure, against a sample median gap of about three years.
 
-The early-marriage margin (`06f`) shows the same pattern in miniature. Rajasthan's estimates rise monotonically across observation-age bands — +0.0091 (ages 19–21), +0.0152 (22–25), +0.0354 (26–30) — which looks like a dose-response gradient until you run the zero-dose band. Women observed at 31–36 have no exposure, yet the 2005 assignment predicts their marriage share at +0.0070 (p = .0002). That bound covers the entire 19–21 estimate.
+The early-marriage margin (`06f`) shows the same pattern in miniature. Rajasthan's estimates rise monotonically across observation-age bands — +0.0090 (ages 19–21), +0.0152 (22–25), +0.0354 (26–30) — which looks like a dose-response gradient until you run the zero-dose band. Women observed at 31–36 have no exposure, yet the 2005 assignment predicts their marriage share at +0.0071 (p = .0002). That bound covers the entire 19–21 estimate.
 
 All estimates are in `data/audit/06a_couples_estimates.csv`, `06b_natal_estimates.csv`, `06d_placebo_estimates.csv`, and `06f_early_marriage_estimates.csv`; formatted tables are in `tabs/`.
 
@@ -49,13 +49,14 @@ Female reservation is randomized *within* caste-reservation strata, and caste-re
 
 ## Data
 
-Nothing large is committed. Only `data/audit/` is under version control: polling-station-level strings are fine to publish, elector names never are.
+Nothing large is committed. Numerical diagnostics in `data/audit/` and the source manifest are under version control: polling-station-level strings are fine to publish, elector names never are.
 
 | Source | Contents | How to obtain |
 |---|---|---|
 | Harvard Dataverse [doi:10.7910/DVN/MUEGDT](https://doi.org/10.7910/DVN/MUEGDT) | Parsed electoral rolls, ~6.6 GB compressed: Rajasthan 2018 and UP 2017 | `Rscript scripts/01a_download_rolls.R` (optional `DATAVERSE_KEY`) |
-| [`in-rolls/quota_raj`](https://github.com/in-rolls/quota_raj) | GP-level reservation panels on LGD codes, caste-reservation strata, Census 2001 covariates | Clone as a sibling directory; snapshotted by `01b` |
-| [`in-rolls/delim_raj`](https://github.com/in-rolls/delim_raj) | Rajasthan delimitation: Devanagari village → GP | Clone as a sibling directory; snapshotted by `01b` |
+| [`local_elections_rajasthan`](https://github.com/in-rolls/local_elections_rajasthan) and [`local_elections_up`](https://github.com/in-rolls/local_elections_up) | Shared election histories and election-to-LGD links | Fixed commits and SHA256 in `data/sources.json`; fetched by `01b` |
+| [`in-rolls/quota_raj`](https://github.com/in-rolls/quota_raj) | Census 2001 covariates aggregated to LGD GPs | Pinned reference input; only Census columns are joined to the canonical election panels |
+| [Rajasthan delimitation archive](https://doi.org/10.7910/DVN/SBF7DP) | Rajasthan delimitation: Devanagari village → GP | Original Dataverse file 7465072 and SHA256 pinned in `data/sources.json` |
 
 Note the roll vintages: **Rajasthan 2018 and UP 2017**, not the 2014/2018 pairing listed in the upstream `electoral_rolls` documentation. The year columns in the data itself (`Draftroll_2018.aspx` for Rajasthan) are authoritative, and `scripts/00_config.R` sets `ROLL_YEAR` accordingly.
 
@@ -65,9 +66,11 @@ Scale at each stage:
 |---|---|---|
 | Elector rows | 43,265,056 | 129,336,463 |
 | Roll parts | 48,182 | 148,537 |
-| GPs observed in rolls | 3,471 | 21,096 |
-| GP × cohort cells | 259,076 | 1,437,130 |
+| GPs observed in rolls | 3,468 | 20,357 |
+| GP × cohort cells | 258,858 | 1,386,890 |
 | Husband-linked couples | 12,616,335 (71.8%) | 23,801,316 (53.6%) |
+
+Moving to the shared panels changes observed GP coverage from 3,471 to 3,468 in Rajasthan and from 21,096 to 20,357 in UP. The primary UP age-gap estimate changes from −0.077 to −0.076 years (p = .007 to .008). The UP natal-ratio estimate changes more, from −0.029 to −0.061 (p = .496 to .121); restricting both versions to their 19,964 common observed GPs gives −0.06232 and −0.06228, so that change is chiefly about sample coverage. Outcome construction and regression specifications are unchanged.
 
 Husband linkage matches each married woman's stated relation name to a male elector in the same household within the same roll part: exact Devanagari match first, then Jaro-Winkler within 0.15 with a runner-up margin. No age-gap filter is applied, since the gap is the outcome.
 
@@ -77,7 +80,7 @@ Husband linkage matches each married woman's stated relation name to a male elec
 
 Beaman et al. surveyed 495 villages in West Bengal and found that exposure to a female pradhan narrowed the gender gap in adolescent aspirations and educational attainment. Marriage timing is the natural administrative test of the same hypothesis: aspirations that survive into adulthood should delay marriage and narrow the spousal age gap.
 
-Two things make that test worth running. First, a direct replication in [`in-rolls/beaman`](https://github.com/in-rolls/beaman) finds the original results fragile — the strongest effect (`no_housewife`) moves from p = .036 raw to p = .051 under wild-cluster bootstrap to p = .252 under Bonferroni, and no outcome survives multiple-testing correction. Second, that study's sample is 495 villages; this one observes 24,567 GPs and tens of millions of adults, so a real effect of plausible size should be easy to detect.
+Two things make that test worth running. First, a direct replication in [`in-rolls/beaman`](https://github.com/in-rolls/beaman) finds the original results fragile — the strongest effect (`no_housewife`) moves from p = .036 raw to p = .051 under wild-cluster bootstrap to p = .252 under Bonferroni, and no outcome survives multiple-testing correction. Second, that study's sample is 495 villages; this one observes 23,825 GPs and tens of millions of adults, so a real effect of plausible size should be easy to detect.
 
 It is not detected here. But as the findings above make clear, this design's own diagnostics are weak enough that the null should be read as uninformative rather than as evidence of absence.
 
@@ -91,23 +94,21 @@ cd quota_shaadi
 # 2. Install R dependencies (R 4.6+; renv activates automatically)
 R -e "renv::restore()"
 
-# 3. Clone treatment-data repos as siblings — REQUIRED, not downloadable
-git clone https://github.com/in-rolls/quota_raj.git ../quota_raj
-git clone https://github.com/in-rolls/delim_raj.git ../delim_raj
+# 3. Fetch the pinned shared election and reference inputs
+Rscript scripts/01b_prepare_sources.R
 
 # 4. Run the pipeline end to end (downloads ~6.6 GB of rolls at stage 01a)
 Rscript scripts/99_run_all.R
 ```
 
-Step 3 is a hard prerequisite. The reservation panels are built in `quota_raj` and are not published as a standalone download; `scripts/01b_import_quota_raj.R` snapshots them with an md5-and-commit manifest so a run is reproducible against a specific upstream state.
+Shared inputs use `INDIA_DATA_HOME` (default `~/data`), under `<provider>/<version>/<relative path>`. The resolver verifies SHA256 on every read and fetches missing files from the pinned commit or Dataverse file ID. Election histories and geographic links are produced upstream; exposure and outcome construction stay here. No local copies of the upstream panels are needed.
 
 Environment variables:
 
 | Variable | Default | Purpose |
 |---|---|---|
 | `DATAVERSE_KEY` | unset | Dataverse API token; optional for public files |
-| `QUOTA_RAJ_DIR` | `../quota_raj` | Override treatment-data location |
-| `DELIM_RAJ_DIR` | `../delim_raj` | Override delimitation-data location |
+| `INDIA_DATA_HOME` | `~/data` | Shared cache for pinned election and reference files |
 | `DUCKDB_MEMORY_LIMIT` | `16GB` | DuckDB memory ceiling |
 | `DUCKDB_THREADS` | `8` | DuckDB thread count |
 
@@ -119,24 +120,25 @@ Numbered stages in `scripts/`, run end to end by `scripts/99_run_all.R`. Heavy l
 
 | Stage | Purpose |
 |---|---|
-| 01a/01b | Download rolls; snapshot `quota_raj` and `delim_raj` with md5 + commit manifest |
+| 01a/01b | Download rolls; fetch SHA256-verified election and reference inputs |
 | 02a/02b | Ingest csv.gz → parquet; typed and cleaned electors (uid, household key, names, relation, sex, age) |
 | 03a–03e | Polling station → village → LGD GP bridge; treatment join; bridge-vs-treatment balance audit |
 | 04a/04b | Husband linkage within household; natal-status flags; GP × birth-year × sex aggregates |
 | 05a | Exposure dose per GP × cohort |
 | 06a–06f | Couples design; natal design; random-rotation subsample; placebo cohorts; sensitivity; early-marriage margin |
 | 07a | Covariate balance on the bridged sample |
-| 08a | Validation against NFHS-4 benchmarks |
+| 08a/98 | NFHS-4 benchmarks; source integrity and treatment-panel checks |
 
 The polling-station-to-village bridge is the hardest step: roll PDFs name polling stations in inconsistent Devanagari, and GP boundaries are re-delimited between roll vintages. Matching runs a cascade of Devanagari-exact, transliteration-exact, consonant-skeleton, and Jaro-Winkler fuzzy passes, blocked first on district and then on tehsil.
 
 ### Directory organization
 
 ```text
-scripts/               # 25 numbered pipeline stages + config/helpers
+scripts/               # Numbered stages and shared helpers
 data-raw/              # Small tracked inputs: NFHS-4 benchmarks, stopwords, district crosswalk
 data/
-├── audit/             # ~75 audit CSVs — the only tracked part of data/
+├── sources.json       # Pinned election, geography and Census inputs
+├── audit/             # Tracked numerical diagnostics
 └── (everything else)  # Parquet, linkage chunks, aggregates — gitignored
 tabs/                  # LaTeX regression tables + balance CSVs
 figs/                  # Spec curve and validation plots
