@@ -12,13 +12,14 @@ library(tidyr)
 library(readr)
 
 source(here("scripts", "00_config.R"))
+source(here("scripts", "00_sources.R"))
 source(here("scripts", "00_utils.R"))
 source(here("scripts", "03_bridge_helpers.R"))
 
 ps_dir <- arrow::read_parquet(here("data", "bridge", "ps_directory_raj.parquet")) |>
     flag_urban()
 
-lgd_gp <- read_csv(here("data", "external", "quota_raj", "lgd_raj_block_gp.csv"),
+lgd_gp <- read_csv(source_path("raj_lgd_directory"),
                    show_col_types = FALSE) |>
     mutate(
         gp_name_std = normalize_string(gp_name),
@@ -56,7 +57,7 @@ ps_dir <- ps_dir |>
 # Reference R1: delim 2014 villages -> GP -> LGD GP code
 # =============================================================================
 
-delim <- read_csv(here("data", "external", "delim_raj", "gp_2014_delim_processed.csv"),
+delim <- read_csv(source_path("delim_2014"),
                   show_col_types = FALSE) |>
     mutate(
         district_std = normalize_string(district),
@@ -167,7 +168,7 @@ ref1 <- delim |>
 # Reference R2: LGD 2024 village -> GP mapping
 # =============================================================================
 
-ref2 <- read_csv(here("data", "external", "quota_raj", "raj_village_gp_mapping_2024.csv"),
+ref2 <- read_csv(source_path("raj_village_mapping"),
                  show_col_types = FALSE) |>
     filter(!is.na(`Local Body Code`)) |>
     transmute(

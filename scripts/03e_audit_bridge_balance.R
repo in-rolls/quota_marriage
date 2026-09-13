@@ -8,6 +8,7 @@ library(dplyr)
 library(fixest)
 
 source(here("scripts", "00_config.R"))
+source(here("scripts", "00_sources.R"))
 source(here("scripts", "00_utils.R"))
 
 results <- list()
@@ -17,9 +18,7 @@ for (state in c("raj", "up")) {
         message("Treatment join not yet built, skipping: ", state)
         next
     }
-    panel_file <- if (state == "raj") "shrug_gp_raj_05_10_block.parquet"
-                  else "shrug_gp_up_05_10_block.parquet"
-    panel <- arrow::read_parquet(here("data", "external", "quota_raj", panel_file))
+    panel <- treatment_panel(state)
     if (state == "raj") {
         panel <- panel |> mutate(fe_dist_block = dist_samiti_2010)
     } else {

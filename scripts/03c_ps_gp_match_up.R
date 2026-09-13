@@ -9,13 +9,14 @@ library(tidyr)
 library(readr)
 
 source(here("scripts", "00_config.R"))
+source(here("scripts", "00_sources.R"))
 source(here("scripts", "00_utils.R"))
 source(here("scripts", "03_bridge_helpers.R"))
 
 ps_dir <- arrow::read_parquet(here("data", "bridge", "ps_directory_up.parquet")) |>
     flag_urban()
 
-ref2 <- read_csv(here("data", "external", "quota_raj", "up_village_gp_mapping_2024.csv"),
+ref2 <- read_csv(source_path("up_village_mapping"),
                  show_col_types = FALSE) |>
     filter(!is.na(`Local Body Code`)) |>
     transmute(

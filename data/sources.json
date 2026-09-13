@@ -1,0 +1,81 @@
+{
+  "raj_panel_2005_2010": {
+    "provider": "local_elections_rajasthan",
+    "ref": "0b0dbf254c9e54f9fa162ce7d370644ba682acaf",
+    "path": "data/fin/elections/raj_05_10.parquet",
+    "sha256": "44f4a0f63fb9304b94525e574d6e8ba11365954d6c18525ce86ce5b70f1aa0c8"
+  },
+  "raj_panel_2005_2010_2015_2020": {
+    "provider": "local_elections_rajasthan",
+    "ref": "0b0dbf254c9e54f9fa162ce7d370644ba682acaf",
+    "path": "data/fin/elections/raj_05_20.parquet",
+    "sha256": "8332d9b6de3943cdaebbe8cd786f2c03d399f82b1585ecb1a7c6a6b6ccaa3f4d"
+  },
+  "raj_lgd_bridge": {
+    "provider": "local_elections_rajasthan",
+    "ref": "0b0dbf254c9e54f9fa162ce7d370644ba682acaf",
+    "path": "data/fin/elections/gp_lgd_crosswalk.parquet",
+    "sha256": "b2a87dd960845f575de246c3e4bc46ce4034f598903d02568324a4d177a6cef6"
+  },
+  "raj_lgd_directory": {
+    "provider": "local_elections_rajasthan",
+    "ref": "0b0dbf254c9e54f9fa162ce7d370644ba682acaf",
+    "path": "data/source/geography/lgd_raj_block_gp.csv",
+    "sha256": "453fc82c673b31819f061166dda68de1148451f62c693bf2c6dfd871db96c06a"
+  },
+  "raj_village_mapping": {
+    "provider": "local_elections_rajasthan",
+    "ref": "0b0dbf254c9e54f9fa162ce7d370644ba682acaf",
+    "path": "data/source/geography/raj_village_gp_mapping_2024.csv",
+    "sha256": "469888c02b619802be44933fdb9a4a14e4c921c46712d6d4f15f83dc784342b6"
+  },
+  "up_panel_2005_2010": {
+    "provider": "local_elections_up",
+    "ref": "5d4659d9ad2d9ccb11b6030d3f24fec1deba408e",
+    "path": "data/fin/up_gp_panel_2005_2010.parquet",
+    "sha256": "95b7578b6165206fdf3e8adfa1cdd201443ad424f5399fa907774521dbdf9af0"
+  },
+  "up_panel_2005_2010_2015_2021": {
+    "provider": "local_elections_up",
+    "ref": "5d4659d9ad2d9ccb11b6030d3f24fec1deba408e",
+    "path": "data/fin/up_gp_panel_2005_2010_2015_2021.parquet",
+    "sha256": "a056c15ae9d56d88e5f2ef5a26a8681cfd4df8cc7c981dd7e0e14e431d2acb97"
+  },
+  "up_lgd_bridge": {
+    "provider": "local_elections_up",
+    "ref": "5d4659d9ad2d9ccb11b6030d3f24fec1deba408e",
+    "path": "data/fin/up_gp_lgd_bridge.parquet",
+    "sha256": "e92f0e42bf23497691dbb96c5496ec06e4c061ae8affa699d24996cbbcf37eeb"
+  },
+  "up_lgd_directory": {
+    "provider": "local_elections_up",
+    "ref": "5d4659d9ad2d9ccb11b6030d3f24fec1deba408e",
+    "path": "data/external/lgd/lgd_up_block_gp.csv",
+    "sha256": "fb4ba2dc7eeb7f905acb6437585df164372c3754e829d103da7c0a48f32fa314"
+  },
+  "up_village_mapping": {
+    "provider": "local_elections_up",
+    "ref": "5d4659d9ad2d9ccb11b6030d3f24fec1deba408e",
+    "path": "data/external/lgd/up_village_gp_mapping_2024.csv",
+    "sha256": "01ce35bbaed75b94dc4b8272e31ad986eb1527dd30f7cc7ce0114f462acbb344"
+  },
+  "raj_census": {
+    "provider": "quota_raj",
+    "ref": "50fbe05662a8f2a84c66e5b262df4c6c0051503d",
+    "path": "data/raj/shrug_gp_raj_05_10_block.parquet",
+    "sha256": "5dba8b158d7e9420fb73fd1bc7644af28d368e4497d2f000dad1575b468234fb"
+  },
+  "up_census": {
+    "provider": "quota_raj",
+    "ref": "50fbe05662a8f2a84c66e5b262df4c6c0051503d",
+    "path": "data/up/shrug_gp_up_05_10_block.parquet",
+    "sha256": "f31c55e06a3ce361b2124eb8adbf4aa9a3a2dee7ef5e809fc9ffc25942aa1f62"
+  },
+  "delim_2014": {
+    "provider": "delim_raj",
+    "ref": "dataverse-7465072",
+    "path": "data/gp_2014_delim_processed.csv",
+    "sha256": "24eab4b57a910e89530b0b42a0077aa80d553f43488788566c0905775ae8bda1",
+    "url": "https://dataverse.harvard.edu/api/access/datafile/7465072?format=original"
+  }
+}
