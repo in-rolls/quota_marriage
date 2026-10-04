@@ -82,7 +82,7 @@ Husband linkage matches each married woman's stated relation name to a male elec
 
 Beaman et al. surveyed 495 villages in West Bengal and found that exposure to a female pradhan narrowed the gender gap in adolescent aspirations and educational attainment. Marriage timing is the natural administrative test of the same hypothesis: changes in aspirations could affect marriage timing and spousal age gaps, although that link is a hypothesis rather than an identified mechanism.
 
-The related replication in [`in-rolls/beaman`](https://github.com/in-rolls/beaman) reports
+The related replication in [`in-rolls/quota_aspirations`](https://github.com/in-rolls/quota_aspirations) reports
 `no_housewife` p-values of .036 with the original inference, .051 with a wild cluster
 bootstrap and .252 with Bonferroni adjustment. No outcome has a Bonferroni-adjusted p-value
 below .05 in the seven-outcome family. Those procedures address different uncertainty questions.
@@ -186,8 +186,8 @@ The diagnostics address different questions: assignment histories, selection int
 - [`in-rolls/quota_spending`](https://github.com/in-rolls/quota_spending) — Lottery-based reservation comparisons and public-goods outcomes
 - [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) — Reservation histories, rotation and electoral representation; supplies Census covariates here
 - [`in-rolls/local_elections_rajasthan`](https://github.com/in-rolls/local_elections_rajasthan) and [`in-rolls/local_elections_up`](https://github.com/in-rolls/local_elections_up) — Canonical election histories and LGD links used here
-- [`in-rolls/delim_raj`](https://github.com/in-rolls/delim_raj) — Rajasthan delimitation, Devanagari village-to-GP mappings
-- [`in-rolls/beaman`](https://github.com/in-rolls/beaman) — Replication of Beaman et al. (2012) with multiple-testing corrections
+- [`in-rolls/local_elections_delimitation_rajasthan`](https://github.com/in-rolls/local_elections_delimitation_rajasthan) — Rajasthan delimitation, Devanagari village-to-GP mappings
+- [`in-rolls/quota_aspirations`](https://github.com/in-rolls/quota_aspirations) — Replication of Beaman et al. (2012) with multiple-testing corrections
 - [`in-rolls/electoral_rolls`](https://github.com/in-rolls/electoral_rolls) — The parsed electoral roll data this analysis consumes
 
 ## License
