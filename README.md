@@ -6,24 +6,24 @@ India reserves a random subset of Gram Panchayat (GP) head — *pradhan* — sea
 
 ## Key findings
 
-**The estimated associations are small and vary across outcomes and specifications.** Similar associations in cohorts without childhood exposure limit their causal interpretation; these results do not establish a zero effect on marriage outcomes.
+**The estimated age-gap differences are small, and the marriage-share results do not show a consistent delay in marriage.** The linked roll sample also has older-cohort associations, covariate imbalance and measurement anomalies that require explanation. These diagnostics concern this sample and its exposure construction; they do not by themselves overturn the lottery-based identification used in the related quota studies.
 
-The core problem is the placebo. Women born on or before 1985 finished childhood before the first reservation cycle began, so their exposure dose is identically zero. Regressing their outcomes on the 2005 reservation assignment should return nothing. It does not:
+One diagnostic compares cohorts whose constructed childhood dose is zero. Women born on or before 1985 were already at least 20 in 2005, the first cycle in this repository's observed reservation history. This is not the start of women's reservations, nor does zero constructed childhood dose imply no exposure to reservations as adults. The 2005 assignment nevertheless predicts their observed spousal age gaps:
 
 | State | s2 (block × cohort FE) | s3 (GP FE, primary) | Placebo, dose ≡ 0 |
 |---|---|---|---|
 | Rajasthan | −0.086 (p = .021) | −0.053 (p = .135) | **−0.043 (p = .015)** |
 | Uttar Pradesh | −0.101 (p = .001) | −0.076 (p = .008) | **−0.033 (p = .010)** |
 
-Outcome is mean spousal age gap in years. The placebo coefficient is 51–81% of the Rajasthan estimate and 33–44% of the UP estimate, and is itself significant. Whatever produces the "treatment" effect also operates on women whose childhoods predate the treatment.
+Outcome is mean spousal age gap in years. The first two columns estimate a coefficient per unit of childhood dose; the last estimates the coefficient on binary 2005 reservation, controlling for 2010 reservation, in older cohorts. They use different regressors and cohorts. The older-cohort coefficients are numerically about 50–81% of the Rajasthan dose coefficients and 33–44% of the UP coefficients, but these ratios are not estimates of the fraction attributable to bias. Treating the older cohorts as negative controls requires showing that later reservation could not affect their observed outcomes or inclusion in the rolls.
 
-Three further reasons not to read these as causal:
+Other findings distinguish outcomes and specifications:
 
 - **Marriage and natal-home indicators.** More exposure predicts *more* women married (Rajasthan `share_married_w`, s2: +0.0141, p = .005) and *fewer* women still in the natal home (`natal_share_w`, s2: −0.0139, p = .006). Both point toward earlier marriage, the opposite of the aspirations hypothesis.
 - **State and specification differences.** UP's marriage-share and natal results are close to zero after adding GP fixed effects: `share_married_w` s3 = +0.0012 (p = .77), `natal_share_w` s3 = −0.0011 (p = .77). The UP spousal-gap estimate has p < 0.05, and that outcome also has a nonzero placebo association.
-- **Magnitude in years.** A coefficient of −0.08 on a dose that runs 0 to 1 means roughly one month of spousal age gap at full exposure, against a sample median gap of about three years.
+- **Magnitude in years.** A coefficient of −0.08 means roughly one month less spousal age gap per unit of the constructed dose, against a sample median gap of about three years. A unit is one cycle-equivalent of exposure within the age window; it is not full childhood exposure. The saved dose reaches 2.2 in Rajasthan and 2.0 in UP.
 
-The early-marriage margin (`06f`) shows the same pattern in miniature. Rajasthan's estimates rise monotonically across observation-age bands — +0.0090 (ages 19–21), +0.0152 (22–25), +0.0354 (26–30) — which looks like a dose-response gradient until you run the zero-dose band. Women observed at 31–36 have no exposure, yet the 2005 assignment predicts their marriage share at +0.0071 (p = .0002). That bound covers the entire 19–21 estimate.
+The early-marriage analysis (`06f`) reports Rajasthan dose coefficients of +0.0090 (ages 19–21), +0.0152 (22–25) and +0.0354 (26–30). In the age 31–36 band, whose constructed childhood dose is zero, the binary 2005 assignment predicts marriage share at +0.0071 (p = .0002). That association is material alongside the younger-cohort estimates, but it neither bounds nor explains them: the regressors, ages and possible post-childhood pathways differ.
 
 All estimates are in `data/audit/06a_couples_estimates.csv`, `06b_natal_estimates.csv`, `06d_placebo_estimates.csv`, and `06f_early_marriage_estimates.csv`; formatted tables are in `tabs/`.
 
@@ -34,7 +34,7 @@ All estimates are in `data/audit/06a_couples_estimates.csv`, `06b_natal_estimate
 - **Couples design** — GP × wife-birth-cohort cells, capturing marriage-market and husband-side exposure. Outcomes: mean spousal age gap, share of couples with a gap of 5+ years, share of women married.
 - **Natal-daughters design** — daughters leave the natal household roll when they marry, so "still listed under her father at observed age *a*" is itself a marriage-timing outcome, and it is measured in the GP where she actually grew up. `natal_ratio` (natal daughters ÷ natal sons) divides out roll-coverage differences between villages.
 
-**Exposure.** Birth year is recovered as `roll_year − age`. Dose is the fraction of ages 5–15 spent under a female-reserved pradhan, summed across reservation cycles (Rajasthan and UP 2005–2010, 2010–2015, 2015–2020/2021; see `scripts/00_config.R`). Dose is mechanically zero for cohorts born on or before 1989 and rises for 1990–2000. Alternative windows of ages 6–16 and 10–16 are reported as sensitivity.
+**Exposure.** Birth year is recovered as `roll_year − age`. For each observed cycle, `05a_exposure.R` divides the number of years overlapping ages 5–15 by that cycle's length, multiplies by its female-reservation indicator, then sums across cycles. The cycles are 2005–2010, 2010–2015 and 2015–2020/2021 (see `scripts/00_config.R`). This sum is measured in cycle-equivalents, not as a fraction of the entire childhood window. It is mechanically zero for cohorts born on or before 1989 because the history starts in 2005; earlier reservations are unobserved. Alternative windows of ages 6–16 and 10–16 are reported as sensitivity.
 
 **Specifications.** All models are `fixest::feols`, weighted by cell size, clustered on GP (`scripts/06_estimation_helpers.R`):
 
@@ -45,7 +45,9 @@ All estimates are in `data/audit/06a_couples_estimates.csv`, `06b_natal_estimate
 | s3 | GP + district × cohort | **Primary.** Within-GP; caste category absorbed |
 | s4 | (district, block) × cohort | Cycle-specific dummies instead of a continuous dose |
 
-Female reservation is randomized *within* caste-reservation strata, and caste-reserved GPs differ demographically, so every cross-GP specification conditions on the seat's caste category. Identification rests on that rotation being as-good-as-random with respect to marriage trends ; the [balance and placebo comparisons](#caveats) document departures relevant to that assumption.
+Female reservation is assigned within caste-reservation strata, and the cross-GP specifications condition on the seat's caste category. The related [`quota_spending`](https://github.com/in-rolls/quota_spending) and [`quota_representation`](https://github.com/in-rolls/quota_representation) studies distinguish lottery assignment from dependence across successive assignments. Rotation can preserve random assignment inherited from an earlier lottery; a test of independence between cycles is not a test of random assignment against potential outcomes.
+
+This study adds further requirements: reliable links to electoral rolls, an appropriate childhood-exposure measure, and a comparison that handles prior and later reservation histories. Cross-sectional comparisons under randomized assignment and within-GP cohort comparisons can both be informative, but rely on different assumptions. Imbalance in the linked, weighted roll sample does not on its own show that the original lottery was nonrandom. The [diagnostics below](#caveats) need to be interpreted at the stage of data construction and estimation where they arise.
 
 ## Data
 
@@ -163,9 +165,9 @@ logs/                  # Pipeline run logs
 
 ## Caveats
 
-The diagnostics are the most informative part of this repository, and they mostly point the same way.
+The diagnostics address different questions: assignment histories, selection into the linked sample, exposure construction and outcome measurement.
 
-**Associations in unexposed cohorts.** As above: women born on or before 1985 have zero exposure, yet the 2005 reservation assignment predicts their spousal age gap at −0.043 (p = .015) in Rajasthan and −0.027 (p = .036) in UP. A stricter placebo variant gives a larger Rajasthan association (−0.050, p = .008). These placebo associations require explanation before interpreting the treatment estimates causally; they are not a formal bound on bias.
+**Associations in cohorts with zero constructed childhood dose.** The 2005 assignment coefficient is −0.043 (p = .015) in Rajasthan and −0.033 (p = .010) in UP. Restricting further to cohorts born by 1978 gives −0.050 (p = .008) in Rajasthan and −0.029 (p = .015) in UP. These associations warrant investigating linkage, sample composition and post-childhood pathways. They do not identify the source of the association or provide a bound on bias in a different cohort's dose coefficient.
 
 **Covariate balance by state.** Conditioning on caste stratum and block, `treat_2005` predicts log population at −0.0352 (p = 9e-5), literacy at −0.0043 (p = .002), and female literacy at −0.0060 (p = 4e-5). `treat_2010` is imbalanced on all three as well. Rajasthan also has differences: literacy −0.0064 (p = .013), female literacy −0.0062 (p = .029).
 
@@ -175,13 +177,15 @@ The diagnostics are the most informative part of this repository, and they mostl
 
 **The bridge relies on fuzzy matching.** Only 9.6% of Rajasthan polling stations match a village by exact Devanagari string against the vintage-matched delimitation. Another 22% match on exact transliteration, 41% on exact consonant skeleton, and the remaining 27% only by fuzzy string distance. UP is weaker still: 88% of its matches are skeleton-based and under 1% are exact transliteration. Match quality is a spec-curve dimension for this reason.
 
-**Rotation is verifiable only in Rajasthan.** Testing consecutive reservation assignments for independence, all 32 Rajasthan districts pass; only 48 of 63 UP districts do. `06c` reruns the main models on the passing subsample.
+**Dependence across assignment cycles.** Tests of independence between 2005 and 2010 assignments have p > .05 in all 32 Rajasthan districts and 48 of 63 UP districts. `06c` restricts to those districts. The primary GP-FE age-gap coefficient is then −0.053 (p = .135) in Rajasthan and −0.098 (p = .003) in UP, compared with −0.076 (p = .008) for UP's full sample. Thus this restriction does not eliminate the UP association. Selecting districts by an independence test does not certify random assignment or address the roll-measurement problems.
 
 **Marriage timing is measured indirectly.** Electoral rolls record current status, not event dates. "Married by age *X*" is identified only for the cohort actually observed at age *X*, which is why the early-marriage analysis is banded rather than pooled.
 
 ## Related repositories
 
-- [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) — Reservation panels and the LGD crosswalk architecture; supplies treatment here
+- [`in-rolls/quota_spending`](https://github.com/in-rolls/quota_spending) — Lottery-based reservation comparisons and public-goods outcomes
+- [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) — Reservation histories, rotation and electoral representation; supplies Census covariates here
+- [`in-rolls/local_elections_rajasthan`](https://github.com/in-rolls/local_elections_rajasthan) and [`in-rolls/local_elections_up`](https://github.com/in-rolls/local_elections_up) — Canonical election histories and LGD links used here
 - [`in-rolls/delim_raj`](https://github.com/in-rolls/delim_raj) — Rajasthan delimitation, Devanagari village-to-GP mappings
 - [`in-rolls/beaman`](https://github.com/in-rolls/beaman) — Replication of Beaman et al. (2012) with multiple-testing corrections
 - [`in-rolls/electoral_rolls`](https://github.com/in-rolls/electoral_rolls) — The parsed electoral roll data this analysis consumes
