@@ -167,7 +167,7 @@ lines <- c(
   "- [quota_spending](https://github.com/in-rolls/quota_spending): reservation assignment and public-goods outcomes.",
   "- [quota_representation](https://github.com/in-rolls/quota_representation): assignment histories, rotation and electoral representation.",
   "- [local_elections_rajasthan](https://github.com/in-rolls/local_elections_rajasthan) and [local_elections_up](https://github.com/in-rolls/local_elections_up): canonical election histories and LGD links.",
-  "- [beaman](https://github.com/in-rolls/beaman): replication of the adolescent-aspirations study; the receiving-family outcomes here test a different question.", "",
+  "- [quota_aspirations](https://github.com/in-rolls/quota_aspirations): replication of the adolescent-aspirations study; the receiving-family outcomes here test a different question.", "",
   "## License", "", "MIT. See [LICENSE](LICENSE)."
 )
 writeLines(lines, here("README.md"))
