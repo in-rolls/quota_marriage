@@ -6,7 +6,7 @@ India reserves a random subset of Gram Panchayat (GP) head — *pradhan* — sea
 
 ## Key findings
 
-**Exposure to a female-reserved pradhan does not credibly change marriage outcomes.** The point estimates are small, inconsistently signed, and — decisively — largely reproduced by cohorts who could not have been treated.
+**The estimated associations are small and vary across outcomes and specifications.** Similar associations in cohorts without childhood exposure limit their causal interpretation; these results do not establish a zero effect on marriage outcomes.
 
 The core problem is the placebo. Women born on or before 1985 finished childhood before the first reservation cycle began, so their exposure dose is identically zero. Regressing their outcomes on the 2005 reservation assignment should return nothing. It does not:
 
@@ -19,9 +19,9 @@ Outcome is mean spousal age gap in years. The placebo coefficient is 51–81% of
 
 Three further reasons not to read these as causal:
 
-- **The signs run backwards.** More exposure predicts *more* women married (Rajasthan `share_married_w`, s2: +0.0141, p = .005) and *fewer* women still in the natal home (`natal_share_w`, s2: −0.0139, p = .006). Both point toward earlier marriage, the opposite of the aspirations hypothesis.
-- **The two states disagree.** UP's marriage-share and natal results collapse to zero once GP fixed effects absorb cross-village differences: `share_married_w` s3 = +0.0012 (p = .77), `natal_share_w` s3 = −0.0011 (p = .77). Only the spousal-gap estimate survives in UP, and that is the outcome with the worst placebo contamination.
-- **The magnitudes are negligible.** A coefficient of −0.08 on a dose that runs 0 to 1 means roughly one month of spousal age gap at full exposure, against a sample median gap of about three years.
+- **Marriage and natal-home indicators.** More exposure predicts *more* women married (Rajasthan `share_married_w`, s2: +0.0141, p = .005) and *fewer* women still in the natal home (`natal_share_w`, s2: −0.0139, p = .006). Both point toward earlier marriage, the opposite of the aspirations hypothesis.
+- **State and specification differences.** UP's marriage-share and natal results are close to zero after adding GP fixed effects: `share_married_w` s3 = +0.0012 (p = .77), `natal_share_w` s3 = −0.0011 (p = .77). The UP spousal-gap estimate has p < 0.05, and that outcome also has a nonzero placebo association.
+- **Magnitude in years.** A coefficient of −0.08 on a dose that runs 0 to 1 means roughly one month of spousal age gap at full exposure, against a sample median gap of about three years.
 
 The early-marriage margin (`06f`) shows the same pattern in miniature. Rajasthan's estimates rise monotonically across observation-age bands — +0.0090 (ages 19–21), +0.0152 (22–25), +0.0354 (26–30) — which looks like a dose-response gradient until you run the zero-dose band. Women observed at 31–36 have no exposure, yet the 2005 assignment predicts their marriage share at +0.0071 (p = .0002). That bound covers the entire 19–21 estimate.
 
@@ -45,7 +45,7 @@ All estimates are in `data/audit/06a_couples_estimates.csv`, `06b_natal_estimate
 | s3 | GP + district × cohort | **Primary.** Within-GP; caste category absorbed |
 | s4 | (district, block) × cohort | Cycle-specific dummies instead of a continuous dose |
 
-Female reservation is randomized *within* caste-reservation strata, and caste-reserved GPs differ demographically, so every cross-GP specification conditions on the seat's caste category. Identification rests on that rotation being as-good-as-random with respect to marriage trends — which is exactly what the balance and placebo tests in [Caveats](#caveats) are meant to check, and largely what they fail.
+Female reservation is randomized *within* caste-reservation strata, and caste-reserved GPs differ demographically, so every cross-GP specification conditions on the seat's caste category. Identification rests on that rotation being as-good-as-random with respect to marriage trends ; the [balance and placebo comparisons](#caveats) document departures relevant to that assumption.
 
 ## Data
 
@@ -78,11 +78,15 @@ Husband linkage matches each married woman's stated relation name to a male elec
 
 > Beaman, L., Duflo, E., Pande, R., & Topalova, P. (2012). Female Leadership Raises Aspirations and Educational Attainment for Girls: A Policy Experiment in India. *Science*, 335(6068), 582–586. [doi:10.1126/science.1212382](https://doi.org/10.1126/science.1212382)
 
-Beaman et al. surveyed 495 villages in West Bengal and found that exposure to a female pradhan narrowed the gender gap in adolescent aspirations and educational attainment. Marriage timing is the natural administrative test of the same hypothesis: aspirations that survive into adulthood should delay marriage and narrow the spousal age gap.
+Beaman et al. surveyed 495 villages in West Bengal and found that exposure to a female pradhan narrowed the gender gap in adolescent aspirations and educational attainment. Marriage timing is the natural administrative test of the same hypothesis: changes in aspirations could affect marriage timing and spousal age gaps, although that link is a hypothesis rather than an identified mechanism.
 
-Two things make that test worth running. First, a direct replication in [`in-rolls/beaman`](https://github.com/in-rolls/beaman) finds the original results fragile — the strongest effect (`no_housewife`) moves from p = .036 raw to p = .051 under wild-cluster bootstrap to p = .252 under Bonferroni, and no outcome survives multiple-testing correction. Second, that study's sample is 495 villages; this one observes 23,825 GPs and tens of millions of adults, so a real effect of plausible size should be easy to detect.
-
-It is not detected here. But as the findings above make clear, this design's own diagnostics are weak enough that the null should be read as uninformative rather than as evidence of absence.
+The related replication in [`in-rolls/beaman`](https://github.com/in-rolls/beaman) reports
+`no_housewife` p-values of .036 with the original inference, .051 with a wild cluster
+bootstrap and .252 with Bonferroni adjustment. No outcome has a Bonferroni-adjusted p-value
+below .05 in the seven-outcome family. Those procedures address different uncertainty questions.
+This analysis extends the outcome and geographic scope to 23,825 GPs and adult marriage measures.
+Its own balance, placebo and measurement diagnostics limit causal interpretation despite the
+larger sample; they do not establish an absence of reservation effects.
 
 ## Quick start
 
@@ -161,13 +165,13 @@ logs/                  # Pipeline run logs
 
 The diagnostics are the most informative part of this repository, and they mostly point the same way.
 
-**Placebo cohorts fail.** As above: women born on or before 1985 have zero exposure, yet the 2005 reservation assignment predicts their spousal age gap at −0.043 (p = .015) in Rajasthan and −0.027 (p = .036) in UP. A stricter placebo variant leaves Rajasthan worse (−0.050, p = .008). Any treatment estimate smaller than roughly twice these values is indistinguishable from whatever the placebo is picking up.
+**Associations in unexposed cohorts.** As above: women born on or before 1985 have zero exposure, yet the 2005 reservation assignment predicts their spousal age gap at −0.043 (p = .015) in Rajasthan and −0.027 (p = .036) in UP. A stricter placebo variant gives a larger Rajasthan association (−0.050, p = .008). These placebo associations require explanation before interpreting the treatment estimates causally; they are not a formal bound on bias.
 
-**Covariate balance fails, badly in UP.** Conditioning on caste stratum and block, `treat_2005` predicts log population at −0.0352 (p = 9e-5), literacy at −0.0043 (p = .002), and female literacy at −0.0060 (p = 4e-5). `treat_2010` is imbalanced on all three as well. Rajasthan is milder but not clean: literacy −0.0064 (p = .013), female literacy −0.0062 (p = .029).
+**Covariate balance by state.** Conditioning on caste stratum and block, `treat_2005` predicts log population at −0.0352 (p = 9e-5), literacy at −0.0043 (p = .002), and female literacy at −0.0060 (p = 4e-5). `treat_2010` is imbalanced on all three as well. Rajasthan also has differences: literacy −0.0064 (p = .013), female literacy −0.0062 (p = .029).
 
 **Bridging is differential in UP.** Reserved GPs bridge to systematically fewer electors: `log_electors_bridged` on `treat_2005` is −0.0482 (p = 4.6e-7). Rajasthan shows no such pattern (p = .32 and p = .10). A treatment-correlated difference in who ends up in the analysis sample is a direct threat in UP.
 
-**Face validity is weak, especially in UP.** UP's current-status marriage curve is non-monotone — 84.1% married at age 18 but 56.6% at 25 — which cannot be right and indicates that the relation field lags actual marriage at young ages, or that roll deletions trail household exits. Median spousal age gaps come in at 3.07 (Rajasthan) and 2.77 (UP) against NFHS/IHDS rural benchmarks of 4.8 and 4.5, and UP's share of negative gaps (8.1%) exceeds the plausible ceiling.
+**Outcome measurement.** UP's current-status marriage curve is non-monotone — 84.1% married at age 18 but 56.6% at 25 — a pattern inconsistent with interpreting these cross-sectional percentages as a single cumulative marriage curve. Cohort composition, delayed relation-field updates or household exits could contribute. Median spousal age gaps come in at 3.07 (Rajasthan) and 2.77 (UP) against NFHS/IHDS rural benchmarks of 4.8 and 4.5, and UP's share of negative gaps (8.1%) exceeds the plausible ceiling.
 
 **The bridge relies on fuzzy matching.** Only 9.6% of Rajasthan polling stations match a village by exact Devanagari string against the vintage-matched delimitation. Another 22% match on exact transliteration, 41% on exact consonant skeleton, and the remaining 27% only by fuzzy string distance. UP is weaker still: 88% of its matches are skeleton-based and under 1% are exact transliteration. Match quality is a spec-curve dimension for this reason.
 
