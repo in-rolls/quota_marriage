@@ -1,0 +1,27 @@
+Type: Project
+Title: Electoral-Roll Evidence on Reservation and Spouse Matching
+Imports:
+    arrow,
+    curl,
+    DBI,
+    digest,
+    dplyr,
+    dqrng,
+    duckdb,
+    fixest,
+    fwildclusterboot,
+    ggplot2,
+    here,
+    httr2,
+    jsonlite,
+    lintr,
+    purrr,
+    readr,
+    renv,
+    stringdist,
+    stringi,
+    stringr,
+    testthat,
+    tibble,
+    tidyr,
+    withr

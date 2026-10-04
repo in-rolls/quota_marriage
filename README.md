@@ -1,194 +1,98 @@
 # Do Gender Quotas in Local Government Change When Girls Marry?
 
-India reserves a random subset of Gram Panchayat (GP) head — *pradhan* — seats for women. If growing up under a woman pradhan raises girls' aspirations, it should show up in the two decisions that most define a young woman's life course: when she marries, and whom. This repository tests that at census scale, using parsed electoral rolls covering 173 million adults in Rajasthan and Uttar Pradesh, with GP-level reservation history as treatment.
+Electoral-roll evidence on reservation assignment and spouse matching in receiving villages in Rajasthan and Uttar Pradesh.
 
-**Author**: Gaurav Sood
+**Author:** Gaurav Sood
 
-## Key findings
+## Question and interpretation
 
-**The estimated age-gap differences are small, and the marriage-share results do not show a consistent delay in marriage.** The linked roll sample also has older-cohort associations, covariate imbalance and measurement anomalies that require explanation. These diagnostics concern this sample and its exposure construction; they do not by themselves overturn the lottery-based identification used in the related quota studies.
+Under patrilocal marriage, a married woman's current village usually describes the receiving family rather than her childhood environment. This analysis therefore asks whether reservation assignment changes observed spouse matching among men in receiving villages. Possible channels include groom-family preferences, opportunities and village attractiveness; the data do not distinguish these mechanisms.
 
-One diagnostic compares cohorts whose constructed childhood dose is zero. Women born on or before 1985 were already at least 20 in 2005, the first cycle in this repository's observed reservation history. This is not the start of women's reservations, nor does zero constructed childhood dose imply no exposure to reservations as adults. The 2005 assignment nevertheless predicts their observed spousal age gaps:
+Bride age at marriage remains an important question, but these inputs contain only one snapshot per state: Rajasthan 2018 and UP 2017. The source fields contain neither marriage dates or durations nor dated amendments. Current spouse ages identify an age gap, not when the marriage occurred. Ration data and longitudinal linkage are reserved for a later stage.
 
-| State | s2 (block × cohort FE) | s3 (GP FE, primary) | Placebo, dose ≡ 0 |
-|---|---|---|---|
-| Rajasthan | −0.086 (p = .021) | −0.053 (p = .135) | **−0.043 (p = .015)** |
-| Uttar Pradesh | −0.101 (p = .001) | −0.076 (p = .008) | **−0.033 (p = .010)** |
+## Main comparisons
 
-Outcome is mean spousal age gap in years. The first two columns estimate a coefficient per unit of childhood dose; the last estimates the coefficient on binary 2005 reservation, controlling for 2010 reservation, in older cohorts. They use different regressors and cohorts. The older-cohort coefficients are numerically about 50–81% of the Rajasthan dose coefficients and 33–44% of the UP coefficients, but these ratios are not estimates of the fraction attributable to bias. Treating the older cohorts as negative controls requires showing that later reservation could not affect their observed outcomes or inclusion in the rolls.
+The primary population is male electoral records aged 19–39 in geographically linked GPs with unambiguous election mappings. Each GP receives equal total weight across its eligible birth-cohort cells, separately for each outcome. The linked-wife outcome includes all such men; age gaps require an unambiguous spouse link and valid ages.
 
-Other findings distinguish outcomes and specifications:
+| State | GPs | Male records | Men with a linked wife | Unambiguous links with ages |
+|---|---:|---:|---:|---:|
+| Rajasthan | 3,468 | 4,062,532 | 1,593,971 | 1,571,339 |
+| Uttar Pradesh | 20,349 | 15,038,140 | 3,324,337 | 3,204,430 |
 
-- **Marriage and natal-home indicators.** More exposure predicts *more* women married (Rajasthan `share_married_w`, s2: +0.0141, p = .005) and *fewer* women still in the natal home (`natal_share_w`, s2: −0.0139, p = .006). Both point toward earlier marriage, the opposite of the aspirations hypothesis.
-- **State and specification differences.** UP's marriage-share and natal results are close to zero after adding GP fixed effects: `share_married_w` s3 = +0.0012 (p = .77), `natal_share_w` s3 = −0.0011 (p = .77). The UP spousal-gap estimate has p < 0.05, and that outcome also has a nonzero placebo association.
-- **Magnitude in years.** A coefficient of −0.08 means roughly one month less spousal age gap per unit of the constructed dose, against a sample median gap of about three years. A unit is one cycle-equivalent of exposure within the age window; it is not full childhood exposure. The saved dose reaches 2.2 in Rajasthan and 2.0 in UP.
+The following table reports raw equal-GP means alongside adjusted assignment contrasts. Linked-wife levels are percentages and differences are percentage points; age gaps and their differences are years. Intervals use block/samiti-clustered standard errors. Holm adjustment uses the eight primary wild-bootstrap p-values.
 
-The early-marriage analysis (`06f`) reports Rajasthan dose coefficients of +0.0090 (ages 19–21), +0.0152 (22–25) and +0.0354 (26–30). In the age 31–36 band, whose constructed childhood dose is zero, the binary 2005 assignment predicts marriage share at +0.0071 (p = .0002). That association is material alongside the younger-cohort estimates, but it neither bounds nor explains them: the regressors, ages and possible post-childhood pathways differ.
+| State / assignment | Outcome | Open mean | Reserved mean | Adjusted difference [95% CI] | Wild p | Holm p |
+|---|---|---:|---:|---:|---:|---:|
+| Rajasthan / 2005 | Linked wife (%) | 43.530 | 44.088 | 0.473 [0.010, 0.937] | 0.045 | 0.269 |
+| Rajasthan / 2010 | Linked wife (%) | 43.772 | 43.648 | 0.035 [-0.371, 0.442] | 0.864 | 1.000 |
+| Rajasthan / 2005 | Spousal gap (years) | 2.012 | 2.007 | -0.018 [-0.062, 0.025] | 0.410 | 1.000 |
+| Rajasthan / 2010 | Spousal gap (years) | 1.990 | 2.033 | 0.033 [-0.008, 0.075] | 0.123 | 0.491 |
+| Uttar Pradesh / 2005 | Linked wife (%) | 23.868 | 24.459 | 0.309 [0.115, 0.504] | 0.002 | 0.014 |
+| Uttar Pradesh / 2010 | Linked wife (%) | 24.103 | 24.220 | 0.256 [0.083, 0.429] | 0.004 | 0.029 |
+| Uttar Pradesh / 2005 | Spousal gap (years) | 1.563 | 1.599 | 0.025 [-0.004, 0.053] | 0.095 | 0.475 |
+| Uttar Pradesh / 2010 | Spousal gap (years) | 1.584 | 1.572 | 0.002 [-0.027, 0.031] | 0.910 | 1.000 |
 
-All estimates are in `data/audit/06a_couples_estimates.csv`, `06b_natal_estimates.csv`, `06d_placebo_estimates.csv`, and `06f_early_marriage_estimates.csv`; formatted tables are in `tabs/`.
+In UP, the linked-wife assignment contrasts are +0.31 and +0.26 percentage points for 2005 and 2010 (Holm-adjusted wild-bootstrap p = 0.014 and 0.029). Across the four primary age-gap comparisons, 4 intervals include zero. These findings concern adult recorded and linked spouses, not a reconstructed marriage date.
 
-## Research design
+These are different outcome samples and comparisons. A change in linked-wife share can reflect registration, co-residence, spouse age or matchability. A change in the age gap describes the composition of observed couples and need not imply that either spouse married later. Selection into observed couples can itself respond to reservation assignment.
 
-**Why two designs.** Rural North Indian marriage is patrilocal and village-exogamous: a married woman observed in GP *g* almost always grew up somewhere else. Her residence GP's reservation history is therefore not her own childhood exposure. Two designs work around this from opposite directions.
+The raw levels describe this restricted sample: linked-wife shares are not marriage prevalence, and the average gaps are not population-wide spousal gaps. Restricting men to ages 19–39 while observing only registered adult wives limits which couples and gaps can appear.
 
-- **Couples design** — GP × wife-birth-cohort cells, capturing marriage-market and husband-side exposure. Outcomes: mean spousal age gap, share of couples with a gap of 5+ years, share of women married.
-- **Natal-daughters design** — daughters leave the natal household roll when they marry, so "still listed under her father at observed age *a*" is itself a marriage-timing outcome, and it is measured in the GP where she actually grew up. `natal_ratio` (natal daughters ÷ natal sons) divides out roll-coverage differences between villages.
+[Complete estimates and sensitivities](data/audit/receiving_estimates.csv) include age bands, native-name-only links, an age-gap trimming sensitivity, population weights and GP-clustered inference. [Age profiles](data/audit/receiving_age_profiles.csv) report counts and linked-wife rates at each age. [Assignment support](data/audit/receiving_assignment_support.csv) reports treatment overlap within geographic × caste strata.
 
-**Exposure.** Birth year is recovered as `roll_year − age`. For each observed cycle, `05a_exposure.R` divides the number of years overlapping ages 5–15 by that cycle's length, multiplies by its female-reservation indicator, then sums across cycles. The cycles are 2005–2010, 2010–2015 and 2015–2020/2021 (see `scripts/00_config.R`). This sum is measured in cycle-equivalents, not as a fraction of the entire childhood window. It is mechanically zero for cohorts born on or before 1989 because the history starts in 2005; earlier reservations are unobserved. Alternative windows of ages 6–16 and 10–16 are reported as sensitivity.
+Weighting changes the comparison: weighting UP's 2010 cells by male-record counts gives a linked-wife difference of +0.22 percentage points (block-clustered p = 0.117). Sensitivity results are exploratory and are outside the eight-test primary Holm adjustment.
 
-**Specifications.** All models are `fixest::feols`, weighted by cell size, clustered on GP (`scripts/06_estimation_helpers.R`):
+## What the outcomes measure
 
-| Spec | Fixed effects | Notes |
-|---|---|---|
-| s1 | district × cohort | Cross-GP, closest to the Beaman design; caste-stratum controls |
-| s2 | (district, block) × cohort | Cross-GP within block; caste-stratum controls |
-| s3 | GP + district × cohort | **Primary.** Within-GP; caste category absorbed |
-| s4 | (district, block) × cohort | Cycle-specific dummies instead of a continuous dose |
+- **Linked-wife share:** distinct men referenced by at least one accepted wife link, divided by all eligible male records. Unlinked men have unknown marital status. Wives below electoral age, absent from the rolls, living elsewhere or not recorded under a husband cannot contribute a link.
+- **Spousal age gap:** husband's current age minus wife's current age, among men linked to exactly one wife with valid ages. Negative gaps remain in the primary analysis. Wife's current age at a fixed husband age is another expression of the same gap, not independent evidence about age at marriage.
+- **Parental-reference retention:** women recorded under a father relative to comparable men, with a father-or-mother sensitivity. The numerator and denominator are reported separately. Neither a parental reference nor an absent husband reference establishes unmarried status or residence with a parent.
 
-Female reservation is assigned within caste-reservation strata, and the cross-GP specifications condition on the seat's caste category. The related [`quota_spending`](https://github.com/in-rolls/quota_spending) and [`quota_representation`](https://github.com/in-rolls/quota_representation) studies distinguish lottery assignment from dependence across successive assignments. Rotation can preserve random assignment inherited from an earlier lottery; a test of independence between cycles is not a test of random assignment against potential outcomes.
+Resident women's married share is not the fraction of an original cohort of local daughters who married: incoming wives and departing daughters change its denominator. For example, 50 remaining daughters and 50 incoming wives give a 50% daughter share; 100 incoming wives lower it to 33% without another daughter departing.
 
-This study adds further requirements: reliable links to electoral rolls, an appropriate childhood-exposure measure, and a comparison that handles prior and later reservation histories. Cross-sectional comparisons under randomized assignment and within-GP cohort comparisons can both be informative, but rely on different assumptions. Imbalance in the linked, weighted roll sample does not on its own show that the original lottery was nonrandom. The [diagnostics below](#caveats) need to be interpreted at the stage of data construction and estimation where they arise.
+## Record identity, linkage and geography
 
-## Data
+The earlier elector identifier combined filename, polling part, serial number and voter ID. Missing serial numbers and IDs caused distinct records to share a key. The receiving-family pipeline identifies records by cleaned-source parquet file and physical row position, then rebuilds spouse links. It does not keep an arbitrary member of a collided group. These are source-record identifiers, not longitudinal person identifiers; duplicate enrollment across rolls remains a measurement concern.
 
-Nothing large is committed. Numerical diagnostics in `data/audit/` and the source manifest are under version control: polling-station-level strings are fine to publish, elector names never are.
+Source PDFs have not been independently checked against the parsed records in this redesign. Structural and name-agreement checks cannot establish the accuracy of the original extraction. Within a roll part and normalized household number, native-name equality receives distance zero; remaining candidates use Jaro distance on transliterated names. This preserves the original stringdist call's zero-prefix-weight setting. Accept the best candidate at distance ≤0.15 only when the runner-up margin is ≥0.05, or there is no second candidate. A man claimed by multiple accepted wife links counts once in linked-wife share and is excluded from primary gap estimates. Native-exact sensitivity checks actual native-name equality, not merely a zero transliteration distance.
 
-| Source | Contents | How to obtain |
-|---|---|---|
-| Harvard Dataverse [doi:10.7910/DVN/MUEGDT](https://doi.org/10.7910/DVN/MUEGDT) | Parsed electoral rolls, ~6.6 GB compressed: Rajasthan 2018 and UP 2017 | `Rscript scripts/01a_download_rolls.R` (optional `DATAVERSE_KEY`) |
-| [`local_elections_rajasthan`](https://github.com/in-rolls/local_elections_rajasthan) and [`local_elections_up`](https://github.com/in-rolls/local_elections_up) | Shared election histories and election-to-LGD links | Fixed commits and SHA256 in `data/sources.json`; fetched by `01b` |
-| [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) | Census 2001 covariates aggregated to LGD GPs | Pinned reference input; only Census columns are joined to the canonical election panels |
-| [Rajasthan delimitation archive](https://doi.org/10.7910/DVN/SBF7DP) | Rajasthan delimitation: Devanagari village → GP | Original Dataverse file 7465072 and SHA256 pinned in `data/sources.json` |
+Eight UP GP codes have competing source election mappings and are excluded from primary construction. The original ranking preferred Seekhar over Seeti in each case; geographic identity remains unverified. [Excluded mappings](data/audit/receiving_up_ambiguous_geography.csv) and state-specific `receiving_*_join_checks.csv` document the construction.
 
-Note the roll vintages: **Rajasthan 2018 and UP 2017**, not the 2014/2018 pairing listed in the upstream `electoral_rolls` documentation. The year columns in the data itself (`Draftroll_2018.aspx` for Rajasthan) are authoritative, and `scripts/00_config.R` sets `ROLL_YEAR` accordingly.
+## Assignment, exposure and uncertainty
 
-Scale at each stage:
+The main models separately compare 2005 and 2010 reservation assignments, absorbing assignment-year district–samiti/block × caste strata and birth-cohort fixed effects. The 2010 comparison controls for 2005 assignment. The 2005 comparison does not control for later reservation or later caste strata. These contrasts may include downstream reservation pathways; they do not isolate the effect of one term.
 
-| | Rajasthan | Uttar Pradesh |
-|---|---|---|
-| Elector rows | 43,265,056 | 129,336,463 |
-| Roll parts | 48,182 | 148,537 |
-| GPs observed in rolls | 3,468 | 20,357 |
-| GP × cohort cells | 258,858 | 1,386,890 |
-| Husband-linked couples | 12,616,335 (71.8%) | 23,801,316 (53.6%) |
+Primary inference clusters at assignment-year district–samiti/block, with finite-sample cluster-t intervals. The eight primary comparisons also use 9,999 null-imposed Rademacher wild-bootstrap draws with saved seeds and inverted confidence intervals; the full output retains both cluster and bootstrap intervals. For the bootstrap, weighted within-stratum demeaning and square-root weights recover the same assignment coefficient in a smaller regression with explicit cohort indicators; strata are nested within bootstrap clusters. GP-clustered inference is a sensitivity. Strata without both assignments remain visible in support tables. Fixed-effect singletons are retained, and weights sum to one per GP after outcome-specific complete-case restrictions.
 
-Moving to the shared panels changes observed GP coverage from 3,471 to 3,468 in Rajasthan and from 21,096 to 20,357 in UP. The primary UP age-gap estimate changes from −0.077 to −0.076 years (p = .007 to .008). The UP natal-ratio estimate changes more, from −0.029 to −0.061 (p = .496 to .121); restricting both versions to their 19,964 common observed GPs gives −0.06232 and −0.06228, so that change is chiefly about sample coverage. Outcome construction and regression specifications are unchanged.
+[Balance and selection diagnostics](data/audit/receiving_balance_selection.csv) distinguish the [source panel with a usable LGD mapping](data/audit/receiving_source_coverage.csv), the geographic bridge, the male sample and the linked-gap sample. Missing LGD mappings preclude a roll comparison; this diagnostic does not certify the entire original lottery. Census 2001 differences and later linkage differences address different stages of the design.
 
-Husband linkage matches each married woman's stated relation name to a male elector in the same household within the same roll part: exact Devanagari match first, then Jaro-Winkler within 0.15 with a runner-up margin. No age-gap filter is applied, since the gap is the outcome.
+In the mapped UP source sample, 2005 assignment is associated with -0.037 log points in Census 2001 population and -0.38 percentage points in female literacy. These baseline differences precede assignment and leave conditional comparability an assumption; clustering and the bootstrap do not resolve it.
 
-## Relation to Beaman et al. (2012)
+[Secondary childhood-exposure models](data/audit/receiving_childhood_estimates.csv) use the man's birth year and GP fixed effects. Dose is the sum of reserved cycle fractions overlapping his childhood window, measured in cycle-equivalents. Missing reservation status remains missing when its cycle overlaps the window. Current GP is not verified childhood residence. Older cohorts are descriptive comparisons, not guaranteed negative controls.
 
-> Beaman, L., Duflo, E., Pande, R., & Topalova, P. (2012). Female Leadership Raises Aspirations and Educational Attainment for Girls: A Policy Experiment in India. *Science*, 335(6068), 582–586. [doi:10.1126/science.1212382](https://doi.org/10.1126/science.1212382)
+## Reproduction
 
-Beaman et al. surveyed 495 villages in West Bengal and found that exposure to a female pradhan narrowed the gender gap in adolescent aspirations and educational attainment. Marriage timing is the natural administrative test of the same hypothesis: changes in aspirations could affect marriage timing and spousal age gaps, although that link is a hypothesis rather than an identified mechanism.
-
-The related replication in [`in-rolls/beaman`](https://github.com/in-rolls/beaman) reports
-`no_housewife` p-values of .036 with the original inference, .051 with a wild cluster
-bootstrap and .252 with Bonferroni adjustment. No outcome has a Bonferroni-adjusted p-value
-below .05 in the seven-outcome family. Those procedures address different uncertainty questions.
-This analysis extends the outcome and geographic scope to 23,825 GPs and adult marriage measures.
-Its own balance, placebo and measurement diagnostics limit causal interpretation despite the
-larger sample; they do not establish an absence of reservation effects.
-
-## Quick start
-
-```bash
-# 1. Clone
-git clone https://github.com/in-rolls/quota_marriage.git
-cd quota_marriage
-
-# 2. Install R dependencies (R 4.6+; renv activates automatically)
-R -e "renv::restore()"
-
-# 3. Fetch the pinned shared election and reference inputs
-Rscript scripts/01b_prepare_sources.R
-
-# 4. Run the pipeline end to end (downloads ~6.6 GB of rolls at stage 01a)
-Rscript scripts/99_run_all.R
+```sh
+Rscript -e 'renv::restore()'
+Rscript scripts/99_run_all.R --from-cleaned
 ```
 
-Shared inputs use `INDIA_DATA_HOME` (default `~/data`), under `<provider>/<version>/<relative path>`. The resolver verifies SHA256 on every read and fetches missing files from the pinned commit or Dataverse file ID. Election histories and geographic links are produced upstream; exposure and outcome construction stay here. No local copies of the upstream panels are needed.
+The `--from-cleaned` entry point requires the local cleaned elector parquet files, ingested roll parquet files and polling-part treatment bridges. It rebuilds receiving-family links, cohorts, exposure, estimates, diagnostics, figures and this README. Omit the flag to run acquisition and geography preparation first. No source-record data or names are committed.
 
-Environment variables:
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `DATAVERSE_KEY` | unset | Dataverse API token; optional for public files |
-| `INDIA_DATA_HOME` | `~/data` | Shared cache for pinned election and reference files |
-| `DUCKDB_MEMORY_LIMIT` | `16GB` | DuckDB memory ceiling |
-| `DUCKDB_THREADS` | `8` | DuckDB thread count |
-
-**Expect this to take hours to days.** It pushes 173 million elector rows through DuckDB and scores tens of millions of candidate household pairs with string distances. Stage `04a` writes per-district parquet chunks behind a `.linkage_complete` sentinel and is resumable; downstream stages skip any state whose inputs are not yet built. `99_run_all.R` logs to `logs/pipeline_<timestamp>.log` and halts on the first error.
-
-## Pipeline
-
-Numbered stages in `scripts/`, run end to end by `scripts/99_run_all.R`. Heavy lifting is DuckDB and Arrow over hive-partitioned parquet; every matching stage emits an audit CSV to `data/audit/`.
-
-| Stage | Purpose |
-|---|---|
-| 01a/01b | Download rolls; fetch SHA256-verified election and reference inputs |
-| 02a/02b | Ingest csv.gz → parquet; typed and cleaned electors (uid, household key, names, relation, sex, age) |
-| 03a–03e | Polling station → village → LGD GP bridge; treatment join; bridge-vs-treatment balance audit |
-| 04a/04b | Husband linkage within household; natal-status flags; GP × birth-year × sex aggregates |
-| 05a | Exposure dose per GP × cohort |
-| 06a–06f | Couples design; natal design; random-rotation subsample; placebo cohorts; sensitivity; early-marriage margin |
-| 07a | Covariate balance on the bridged sample |
-| 08a/98 | NFHS-4 benchmarks; source integrity and treatment-panel checks |
-
-The polling-station-to-village bridge is the hardest step: roll PDFs name polling stations in inconsistent Devanagari, and GP boundaries are re-delimited between roll vintages. Matching runs a cascade of Devanagari-exact, transliteration-exact, consonant-skeleton, and Jaro-Winkler fuzzy passes, blocked first on district and then on tehsil.
-
-### Directory organization
-
-```text
-scripts/               # Numbered stages and shared helpers
-data-raw/              # Small tracked inputs: NFHS-4 benchmarks, stopwords, district crosswalk
-data/
-├── sources.json       # Pinned election, geography and Census inputs
-├── audit/             # Tracked numerical diagnostics
-└── (everything else)  # Parquet, linkage chunks, aggregates — gitignored
-tabs/                  # LaTeX regression tables + balance CSVs
-figs/                  # Spec curve and validation plots
-logs/                  # Pipeline run logs
+```sh
+make test
+make validate
+make lint
 ```
 
-## Outputs
-
-| Path | Contents |
-|---|---|
-| `tabs/couples_main_{raj,up}.tex` | Couples design, all specs |
-| `tabs/natal_main_{raj,up}.tex` | Natal-daughters design |
-| `tabs/early_marriage_{raj,up}.tex` | Marriage share by observation-age band |
-| `tabs/balance_{raj,up}.csv` | Unconditional covariate balance |
-| `figs/sensitivity_spec_curve.pdf` | Spec curve over exposure window, bridge quality, natal definition, couples sample |
-| `figs/validation/` | Marriage curves and sex ratios vs. NFHS-4, both states |
-| `data/audit/*.csv` | Every intermediate diagnostic, including all estimate tables |
-
-## Caveats
-
-The diagnostics address different questions: assignment histories, selection into the linked sample, exposure construction and outcome measurement.
-
-**Associations in cohorts with zero constructed childhood dose.** The 2005 assignment coefficient is −0.043 (p = .015) in Rajasthan and −0.033 (p = .010) in UP. Restricting further to cohorts born by 1978 gives −0.050 (p = .008) in Rajasthan and −0.029 (p = .015) in UP. These associations warrant investigating linkage, sample composition and post-childhood pathways. They do not identify the source of the association or provide a bound on bias in a different cohort's dose coefficient.
-
-**Covariate balance by state.** Conditioning on caste stratum and block, `treat_2005` predicts log population at −0.0352 (p = 9e-5), literacy at −0.0043 (p = .002), and female literacy at −0.0060 (p = 4e-5). `treat_2010` is imbalanced on all three as well. Rajasthan also has differences: literacy −0.0064 (p = .013), female literacy −0.0062 (p = .029).
-
-**Bridging is differential in UP.** Reserved GPs bridge to systematically fewer electors: `log_electors_bridged` on `treat_2005` is −0.0482 (p = 4.6e-7). Rajasthan shows no such pattern (p = .32 and p = .10). A treatment-correlated difference in who ends up in the analysis sample is a direct threat in UP.
-
-**Outcome measurement.** UP's current-status marriage curve is non-monotone — 84.1% married at age 18 but 56.6% at 25 — a pattern inconsistent with interpreting these cross-sectional percentages as a single cumulative marriage curve. Cohort composition, delayed relation-field updates or household exits could contribute. Median spousal age gaps come in at 3.07 (Rajasthan) and 2.77 (UP) against NFHS/IHDS rural benchmarks of 4.8 and 4.5, and UP's share of negative gaps (8.1%) exceeds the plausible ceiling.
-
-**The bridge relies on fuzzy matching.** Only 9.6% of Rajasthan polling stations match a village by exact Devanagari string against the vintage-matched delimitation. Another 22% match on exact transliteration, 41% on exact consonant skeleton, and the remaining 27% only by fuzzy string distance. UP is weaker still: 88% of its matches are skeleton-based and under 1% are exact transliteration. Match quality is a spec-curve dimension for this reason.
-
-**Dependence across assignment cycles.** Tests of independence between 2005 and 2010 assignments have p > .05 in all 32 Rajasthan districts and 48 of 63 UP districts. `06c` restricts to those districts. The primary GP-FE age-gap coefficient is then −0.053 (p = .135) in Rajasthan and −0.098 (p = .003) in UP, compared with −0.076 (p = .008) for UP's full sample. Thus this restriction does not eliminate the UP association. Selecting districts by an independence test does not certify random assignment or address the roll-measurement problems.
-
-**Marriage timing is measured indirectly.** Electoral rolls record current status, not event dates. "Married by age *X*" is identified only for the cohort actually observed at age *X*, which is why the early-marriage analysis is banded rather than pooled.
+The source manifest pins shared election panels, LGD links and Census covariates. State-specific `receiving_*_input_manifest.csv` files hash every cleaned elector parquet file used to define source-record identifiers. The electoral input is Harvard Dataverse [10.7910/DVN/MUEGDT](https://doi.org/10.7910/DVN/MUEGDT). The historical wife-cohort analysis is available in Git history at `f4373cb`; its exposure interpretation and link identifiers are superseded here. This redesign follows inspection of those results and is not a prospective preregistration.
 
 ## Related repositories
 
-- [`in-rolls/quota_spending`](https://github.com/in-rolls/quota_spending) — Lottery-based reservation comparisons and public-goods outcomes
-- [`in-rolls/quota_representation`](https://github.com/in-rolls/quota_representation) — Reservation histories, rotation and electoral representation; supplies Census covariates here
-- [`in-rolls/local_elections_rajasthan`](https://github.com/in-rolls/local_elections_rajasthan) and [`in-rolls/local_elections_up`](https://github.com/in-rolls/local_elections_up) — Canonical election histories and LGD links used here
-- [`in-rolls/delim_raj`](https://github.com/in-rolls/delim_raj) — Rajasthan delimitation, Devanagari village-to-GP mappings
-- [`in-rolls/beaman`](https://github.com/in-rolls/beaman) — Replication of Beaman et al. (2012) with multiple-testing corrections
-- [`in-rolls/electoral_rolls`](https://github.com/in-rolls/electoral_rolls) — The parsed electoral roll data this analysis consumes
+- [quota_spending](https://github.com/in-rolls/quota_spending): reservation assignment and public-goods outcomes.
+- [quota_representation](https://github.com/in-rolls/quota_representation): assignment histories, rotation and electoral representation.
+- [local_elections_rajasthan](https://github.com/in-rolls/local_elections_rajasthan) and [local_elections_up](https://github.com/in-rolls/local_elections_up): canonical election histories and LGD links.
+- [beaman](https://github.com/in-rolls/beaman): replication of the adolescent-aspirations study; the receiving-family outcomes here test a different question.
 
 ## License
 

@@ -2,7 +2,7 @@ data/**
 !data/audit/
 !data/audit/**
 !data/**/.gitkeep
-logs/*.log
+logs/
 .Rhistory
 .RData
 .Rproj.user/
