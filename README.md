@@ -100,4 +100,14 @@ MIT. See [LICENSE](LICENSE).
 
 <!-- adjacent:start -->
 
+## 🔗 Adjacent Repositories
+
+- [in-rolls/quota_pds](https://github.com/in-rolls/quota_pds) — Do women pradhans reduce corruption in the PDS? Forensics on 16M Rajasthan ration cards x GP reservation lottery: precise nulls, clean placebos.
+- [in-rolls/quota_governance](https://github.com/in-rolls/quota_governance) — Women's political reservations and local governance in India
+- [in-rolls/quota_corruption](https://github.com/in-rolls/quota_corruption) — Women’s seat reservations and corruption in rural India: published bribery evidence and SEPRI survey analysis.
+- [in-rolls/local_elections_rajasthan](https://github.com/in-rolls/local_elections_rajasthan) — Rajasthan GP Election Reservation Status and Results for 2020--2022
+- [in-rolls/quota_representation](https://github.com/in-rolls/quota_representation) — The Effect of Gender Quotas in Local Bodies on Women's Representation in Rural India
+
+_Powered by [Adjacent](https://github.com/gojiplus/adjacent)_
+
 <!-- adjacent:end -->
