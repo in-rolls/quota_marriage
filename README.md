@@ -97,3 +97,7 @@ The source manifest pins shared election panels, LGD links and Census covariates
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+<!-- adjacent:start -->
+
+<!-- adjacent:end -->
